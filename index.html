@@ -114,6 +114,12 @@ h2.sec{font-size:18px;margin:4px 0 10px}
 .resumoQ .gq{flex:0 0 34px;cursor:default}
 .resumoQ small{color:var(--apagado)}
 .rev h3{font-size:17px;margin:16px 0 6px}.rev ul{margin:0;padding-left:20px}.rev li{margin:4px 0}
+.desemp{display:grid;gap:8px;margin:0 0 12px}
+.dl{display:grid;grid-template-columns:minmax(90px,150px) 1fr auto;gap:10px;align-items:center;font-size:15px}
+.dl .trilho{height:12px;border-radius:999px;background:var(--mesa);overflow:hidden}
+.dl .enche{height:100%;border-radius:999px}
+.dl small{color:var(--apagado);white-space:nowrap}
+.vazio{color:var(--apagado);font-size:15px;margin:0}
 footer{text-align:center;font-size:13px;color:var(--apagado);padding:20px 16px}
 @media (max-width:520px){.titulo{font-size:26px}.nota{font-size:60px}.gq{width:30px;height:30px}}
 @media (prefers-reduced-motion:reduce){.op[aria-checked="true"]{animation:none;background-size:100% 100%}}
@@ -160,6 +166,26 @@ function sorteia(m){
   return esc10.map(q => ({ q, ordem: (q.fixa || q.af) ? [0,1,2,3,4] : mistura([0,1,2,3,4]) }));
 }
 
+/* ---------- DESEMPENHO (fica guardado só neste aparelho) ---------- */
+const MIN_TENT = 3; /* tema só entra no ranking com pelo menos 3 questões feitas */
+function desempenho(){
+  const st = ler('jogo-stats-'+MAT, {});
+  return Object.entries(st).map(([tema,v]) => ({tema, t:v.t, a:v.a, pct: v.t ? v.a/v.t : 0})).sort((x,y) => x.pct - y.pct || y.t - x.t);
+}
+const corPct = p => p >= .8 ? 'var(--acerto)' : p >= .5 ? '#e0a100' : 'var(--correcao)';
+function desempenhoHtml(){
+  const d = desempenho();
+  if (!d.length) return `<p class="vazio">Faça um simulado e aqui aparece a sua porcentagem de acerto em cada tema, do que você mais erra pro que mais acerta.</p>`;
+  const fracos = d.filter(x => x.t >= MIN_TENT && x.pct < .7);
+  return `<div class="desemp">${d.map(x => `<div class="dl"><span>${esc(x.tema)}</span><div class="trilho" aria-hidden="true"><div class="enche" style="width:${Math.max(4,Math.round(x.pct*100))}%;background:${corPct(x.pct)}"></div></div><small>${Math.round(x.pct*100)}%, ${x.a} de ${x.t}</small></div>`).join('')}</div>
+  ${fracos.length ? `<button class="acao principal" id="fracos"><span class="ico" aria-hidden="true">🎯</span><span><b>Treinar meus pontos fracos</b><small>10 questões de ${fracos.slice(0,3).map(x=>x.tema).join(', ')}</small></span></button>` : `<p class="vazio">${d.some(x=>x.t>=MIN_TENT) ? 'Nenhum tema abaixo de 70 % ainda. Continue assim.' : 'Depois de 3 questões de um tema ele entra na conta dos pontos fracos.'}</p>`}
+  <p class="vazio" style="margin-top:10px;font-size:13px">Seus dados ficam guardados só neste celular.</p>`;
+}
+function modoFracos(){
+  const temas = desempenho().filter(x => x.t >= MIN_TENT && x.pct < .7).slice(0,3).map(x => x.tema);
+  return { id:'fracos', nome:'Pontos fracos', temas };
+}
+
 /* ---------- INÍCIO ---------- */
 function inicio(){
   partida = null;
@@ -185,10 +211,12 @@ function inicio(){
     </div>
     <div class="legenda"><span><i class="tag sm1">SM1</i>caiu igualzinho no SM1</span><span><i class="tag par">parecida</i>parecida com uma do SM1</span></div>
   </section>
+  <section class="folha"><h2 class="sec">Meu desempenho</h2>${desempenhoHtml()}</section>
   ${temas.length ? `<section class="folha"><h2 class="sec">Treinar um assunto</h2><div class="temas">${temas.map(m => `<button class="tema" data-go="${m.id}">${esc(m.nome)} <small>${poolDe(m).length}</small></button>`).join('')}</div></section>` : ''}`;
   app.querySelectorAll('[data-mat]').forEach(el => el.onclick = () => { MAT = el.dataset.mat; grava('jogo-mat', MAT); inicio(); });
   app.querySelectorAll('[data-go]').forEach(el => el.onclick = () => comeca(ms.find(m => m.id === el.dataset.go)));
   app.querySelectorAll('[data-rev]').forEach(el => el.onclick = () => resumo(null));
+  if ($('#fracos')) $('#fracos').onclick = () => comeca(modoFracos());
   window.scrollTo(0,0);
 }
 
@@ -265,6 +293,9 @@ function confirma(){
   const e = new Set(errosDe());
   if (it.resp === it.certa) e.delete(it.q.id); else e.add(it.q.id);
   grava('jogo-erros-'+MAT, [...e]);
+  const st = ler('jogo-stats-'+MAT, {}); const t = it.q.tema || 'Geral';
+  st[t] = st[t] || {t:0, a:0}; st[t].t++; if (it.resp === it.certa) st[t].a++;
+  grava('jogo-stats-'+MAT, st);
   questao();
 }
 document.addEventListener('keydown', ev => {
