@@ -1796,5 +1796,6 @@ window.MATERIAS = [
   { id: 'bases', nome: 'Bases Morfológicas', pronto: true },
   { id: 'carie', nome: 'Cárie', pronto: true },
   { id: 'inter', nome: 'Interações', pronto: true },
-  { id: 'farmaco', nome: 'Farmacologia', pronto: false, nota: 'em breve' }
+  { id: 'farmaco', nome: 'Farmacologia', pronto: true },
+  { id: 'imagino', nome: 'Imaginologia (bônus)', pronto: true, bonus: true }
 ];
