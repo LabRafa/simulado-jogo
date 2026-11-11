@@ -437,7 +437,7 @@ function questao(anima){
     ? `<button class="botao aperta" id="prox">${respondidas===total ? 'Ver minha nota' : 'Próxima questão'}</button>`
     : `<button class="botao aperta" id="conf" ${it.resp===null?'disabled':''}>${it.resp===null ? 'Escolha uma alternativa' : 'Confirmar a letra '+L[it.resp]}</button>`}</div>`;
   if (nova) window.scrollTo(0,0);
-  $('#sair').onclick = () => { if (!respondidas || confirm('Sair do simulado? O que você respondeu não vai contar.')) materia(); };
+  $('#sair').onclick = ev => { const bt = ev.currentTarget; if (!respondidas || bt.dataset.certeza) { materia(); return; } bt.dataset.certeza = '1'; bt.innerHTML = 'Toque de novo pra sair'; bt.style.color = 'var(--errado)'; setTimeout(() => { if (bt.isConnected) { delete bt.dataset.certeza; bt.innerHTML = IC.x + 'Sair'; bt.style.color = ''; } }, 3000); };
   app.querySelectorAll('[data-ir]').forEach(el => el.onclick = () => { P.i = +el.dataset.ir; questao(); });
   app.querySelectorAll('[data-op]').forEach(el => el.onclick = () => escolhe(+el.dataset.op));
   if ($('#riscar')) $('#riscar').onclick = () => { it.riscadas = mistura([0,1,2,3,4].filter(k => k!==it.certa && k!==it.resp)).slice(0,2); questao(); };
