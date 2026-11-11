@@ -315,7 +315,7 @@ function inicio(){
     const b = BANCOS[m.id], c = (CORES[m.id]||['#2346a8'])[0], melhor = ler('jogo-melhor-'+m.id, null);
     const nome = esc(m.nome.replace(/\s*\(bônus\)/i,''));
     return `<li><button class="mat aperta" data-mat="${m.id}" style="--c:${c}"><span class="aba"></span><span class="txt"><b>${nome}${m.bonus?'<span class="bonus">bônus</span>':''}</b><small>${esc(b.proxima||'')}</small></span><span class="nota">${melhor!==null ? nota1(melhor)+'<em>melhor</em>' : IC.seta.replace('<svg','<svg width="22" height="22"')}</span></button></li>`; }).join('')}</ul>
-  <a class="sisao aperta" href="https://labrafa.github.io/dentolingu/#milhao"><span style="color:var(--cinza)">${IC.trofeu}</span><span><b>Show do Sisão</b><small>Perguntas valendo prêmio, de todas as matérias</small></span></a>`);
+  <a class="sisao aperta" href="https://labrafa.github.io/dentolingu/#milhao"><span style="color:var(--cinza)">${IC.trofeu}</span><span><b>Show do Sisão</b><small>Jogo de perguntas, só pela diversão (o prêmio é de mentirinha)</small></span></a>`);
   app.querySelectorAll('[data-mat]').forEach(el => el.onclick = () => { MAT = el.dataset.mat; grava('jogo-mat', MAT); materia(); });
 }
 
