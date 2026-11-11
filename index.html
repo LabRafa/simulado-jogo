@@ -159,6 +159,14 @@ p{margin:0}
 .fer svg{width:17px;height:17px}
 .dicaBox{margin-top:12px;background:#fff7d6;border-radius:12px;padding:12px 14px;font-size:15px}
 .dicaBox ul{margin:6px 0 0;padding-left:18px}
+/* imagem da questão: toque amplia em tela cheia */
+.figq{display:block;width:100%;margin:0 0 14px;padding:0;border:0;border-radius:12px;overflow:hidden;background:#23272e;position:relative;cursor:zoom-in}
+.figq img{display:block;width:100%;height:auto;max-height:48vh;object-fit:contain}
+.figq .lupa{position:absolute;right:8px;top:8px;background:rgba(0,0,0,.6);color:#fff;font-size:12.5px;font-weight:700;border-radius:999px;padding:4px 10px;pointer-events:none}
+.retorno .figq{margin:10px 0 8px}
+.zoom{position:fixed;inset:0;z-index:50;background:rgba(10,12,16,.94);display:flex;align-items:center;justify-content:center;padding:12px;cursor:zoom-out;animation:sobe .2s ease-out}
+.zoom img{max-width:100%;max-height:100%;object-fit:contain;touch-action:pinch-zoom}
+.zoom .fecha{position:absolute;top:10px;right:12px;color:#fff;background:rgba(255,255,255,.14);border-radius:999px;padding:8px 14px;font-weight:700;font-size:15px}
 .retorno{margin-top:16px;border-radius:14px;padding:14px 16px;animation:sobe .3s ease-out}
 .retorno.ok{background:var(--certo-claro)}
 .retorno.no{background:var(--errado-claro)}
@@ -259,6 +267,7 @@ function poolDe(m){
   const b = banco();
   if (m.erros) { const e = errosDe(); return b.q.filter(q => e.includes(q.id)); }
   if (m.sm1todo) return b.q.filter(q => q.sm1 && (!m.prefixo || q.id.startsWith(m.prefixo))).sort((x,y)=>x.id.localeCompare(y.id,'pt',{numeric:true}));
+  if (m.img) return b.q.filter(q => q.img);
   if (m.af) return b.q.filter(q => q.af && q.af.length);
   return m.temas ? b.q.filter(q => m.temas.includes(q.tema)) : b.q.slice();
 }
@@ -376,6 +385,14 @@ function trilhaHtml(){
     const c = it.conf ? (it.resp===it.certa?' ok':' no') : (it.pulou?' pul':'');
     return `<button class="seg${c}${k===partida.i?' atual':''}" data-ir="${k}" aria-label="Ir para a questão ${k+1}${it.conf?(it.resp===it.certa?', certa':', errada'):''}"${k===partida.i?' aria-current="step"':''}></button>`; }).join('')}</div>`;
 }
+const figHtml = (src, alt) => `<button type="button" class="figq" data-zoom="${esc(src)}" data-alt="${esc(alt)}" aria-label="Ampliar a imagem"><img src="${esc(src)}" alt="${esc(alt)}" loading="eager" decoding="async"><span class="lupa">⤢ Ampliar</span></button>`;
+function abreZoom(src, alt){
+  const z = document.createElement('div'); z.className = 'zoom'; z.setAttribute('role','dialog'); z.setAttribute('aria-label','Imagem ampliada');
+  z.innerHTML = `<img src="${esc(src)}" alt="${esc(alt)}"><span class="fecha">Fechar ✕</span>`;
+  const fecha = () => { z.remove(); document.removeEventListener('keydown', esc_); };
+  const esc_ = ev => { if (ev.key === 'Escape') fecha(); };
+  z.onclick = fecha; document.addEventListener('keydown', esc_); document.body.appendChild(z);
+}
 function enunciadoHtml(q){
   if (q.af && q.af.length) return `<div class="enun"><p>${esc(q.ctx)}</p><ul class="afs">${q.af.map((t,k)=>(q.ar&&k===1?'<li class="porque">PORQUE</li>':'')+`<li><b>${ROM[k]}.</b><span>${esc(t)}</span></li>`).join('')}</ul>${q.p?`<p>${esc(q.p)}</p>`:''}</div>`;
   return `<div class="enun"><p>${esc(q.ctx)}${q.p?' '+esc(q.p):''}</p></div>`;
@@ -393,6 +410,7 @@ function questao(anima){
   <section class="folha${nova?' entra':''}">
     <div class="qcab"><h2>Questão ${P.i+1} de ${total}</h2><span class="tema">${esc(q.tema)}</span></div>
     ${marca ? `<div style="margin:-6px 0 10px">${marca}</div>` : ''}
+    ${q.img ? figHtml(q.img, q.alt || 'Imagem da questão') : ''}
     ${enunciadoHtml(q)}
     <div class="ops" role="radiogroup" aria-label="Alternativas">${it.ordem.map((o,k) => {
       let cls = '';
@@ -402,7 +420,7 @@ function questao(anima){
     ${it.conf ? `
       <div class="retorno ${it.resp===it.certa?'ok':'no'}" role="status">
         <h3>${it.resp===it.certa ? 'Acertou. Mais 0,1' : 'Errou. A certa é a '+L[it.certa]}</h3>
-        <p>${esc(q.w)}</p>${(q.net||q.f)?`<p class="fonte">${q.net?'Questão de pesquisa. ':''}${esc(q.f||'')}</p>`:''}
+        <p>${esc(q.w)}</p>${q.imgw ? figHtml(q.imgw, 'A mesma imagem com a resposta marcada') : ''}${(q.net||q.f)?`<p class="fonte">${q.net?'Questão de pesquisa. ':''}${esc(q.f||'')}</p>`:''}
       </div>` : `
       <div class="ferr">
         <button class="fer" id="riscar" ${it.riscadas.length?'disabled':''}>${IC.tesoura}Riscar 2 erradas</button>
@@ -421,6 +439,7 @@ function questao(anima){
   if ($('#riscar')) $('#riscar').onclick = () => { it.riscadas = mistura([0,1,2,3,4].filter(k => k!==it.certa && k!==it.resp)).slice(0,2); questao(); };
   if ($('#dica')) $('#dica').onclick = () => { it.dica = !it.dica; questao(); };
   if ($('#pular')) $('#pular').onclick = () => { it.pulou = true; P.i = proximaLivre(P.i); questao(); };
+  app.querySelectorAll('[data-zoom]').forEach(el => el.onclick = () => abreZoom(el.dataset.zoom, el.dataset.alt));
   if ($('#conf')) $('#conf').onclick = confirma;
   if ($('#prox')) $('#prox').onclick = () => { if (P.itens.every(x => x.conf)) resultado(); else { P.i = proximaLivre(P.i); questao(); } };
 }
