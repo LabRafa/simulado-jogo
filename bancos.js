@@ -321,7 +321,7 @@ window.BANCOS = {
  "codigo": "ARA4340",
  "prof": "SEBASTIÃO MAGNO",
  "turma": "3008",
- "proxima": "SM2 terça 10/11, na sala, no horário da aula. AV terça 24/11",
+ "proxima": "SM2 foi terça 10/11. AV terça 24/11",
  "modos": [
   {
    "id": "completo",
@@ -336,6 +336,22 @@ window.BANCOS = {
    "temas": null,
    "sm1todo": true,
    "prefixo": "sa"
+  },
+  {
+   "id": "sm2ver",
+   "nome": "Prova do SM2",
+   "sub": "As 10 questões de 10/11, com gabarito comentado",
+   "temas": null,
+   "sm2todo": true,
+   "prefixo": "c2_"
+  },
+  {
+   "id": "t-microbiologia",
+   "nome": "Microbiologia",
+   "sub": "",
+   "temas": [
+    "Microbiologia"
+   ]
   },
   {
    "id": "t-etiologia",
@@ -1108,6 +1124,215 @@ window.BANCOS = {
    "w": "O mais eficaz é diminuir a FREQUÊNCIA de açúcar e controlar o biofilme, com acompanhamento. Escovar sem mudar a dieta não resolve.",
    "f": "SM1 de Cárie, 22/09/2026, prof. Sebastião Magno, questão 10 (questão original da prova)",
    "net": false
+  },
+  {
+   "id": "c2_01",
+   "sm2": true,
+   "tema": "Etiologia",
+   "ctx": "Uma paciente de 22 anos procura atendimento odontológico relatando que, durante o período de estudos e trabalho, costuma ingerir pequenas quantidades de café adoçado, bebidas açucaradas, biscoitos e outros alimentos contendo carboidratos fermentáveis várias vezes ao longo do dia. A paciente afirma que \"não come muito açúcar\", pois geralmente consome pequenas porções em cada ocasião. Ao exame clínico, observa-se presença de biofilme dental e lesões de cárie incipientes em diferentes superfícies dentárias.\nDurante a orientação, o cirurgião-dentista explica que o risco cariogênico não depende exclusivamente da quantidade total de açúcar ingerida, mas também da frequência das exposições ao substrato fermentável e do tempo durante o qual o biofilme permanece submetido a condições de baixo pH.\nConsiderando a situação clínica apresentada e os mecanismos relacionados ao processo de cárie, analise as afirmativas a seguir.",
+   "p": "Assinale a alternativa CORRETA.",
+   "o": [
+    "Apenas as afirmativas I, II e IV estão corretas.",
+    "Apenas as afirmativas I, III e V estão corretas.",
+    "Apenas as afirmativas I, II, IV e V estão corretas.",
+    "Apenas as afirmativas II, III e IV estão corretas.",
+    "Todas as afirmativas estão corretas."
+   ],
+   "a": 2,
+   "w": "Só a III está errada. É o raciocínio da curva de Stephan: cada vez que entra açúcar, o pH do biofilme cai em minutos e leva uns 30 a 40 minutos para voltar. Várias porções pequenas ao longo do dia = várias quedas = o esmalte passa mais tempo desmineralizando do que remineralizando. Por isso a frequência pesa mais que a quantidade, e o pH da saliva \"normal\" não protege o biofilme nessas quedas. I, II, IV e V dizem exatamente isso.",
+   "f": "SM2 de Cárie, 10/11/2026, prof. Sebastião Magno, questão 1 (questão original da prova)",
+   "net": false,
+   "af": [
+    "A ingestão frequente de carboidratos fermentáveis pode provocar episódios repetidos de queda do pH do biofilme, aumentando o período em que o esmalte permanece submetido a condições favoráveis à desmineralização.",
+    "A frequência de ingestão de carboidratos é relevante para o risco de cárie porque cada episódio de exposição pode desencadear uma queda do pH, seguida de um período necessário para sua recuperação.",
+    "Uma vez que o pH salivar normalmente se encontra próximo da neutralidade, pequenas exposições repetidas a açúcares não apresentam importância clínica significativa, desde que a quantidade consumida em cada episódio seja pequena.",
+    "A manutenção prolongada de condições de baixo pH no biofilme favorece o desequilíbrio entre desmineralização e remineralização, podendo contribuir para a progressão de lesões cariosas quando os episódios de acidificação são frequentes.",
+    "A orientação dietética para pacientes com risco de cárie deve considerar não apenas a quantidade de carboidratos fermentáveis consumidos, mas também a frequência e o padrão de exposição ao longo do dia."
+   ],
+   "fixa": true
+  },
+  {
+   "id": "c2_02",
+   "sm2": true,
+   "tema": "Biofilme",
+   "ctx": "A formação do biofilme dental ocorre de maneira organizada e envolve diferentes etapas.",
+   "p": "Qual alternativa apresenta a sequência correta?",
+   "o": [
+    "Colonização → película adquirida → maturação → multiplicação → dispersão.",
+    "Película adquirida → maturação → colonização → dispersão → multiplicação.",
+    "Multiplicação → colonização → película adquirida → maturação → dispersão.",
+    "Película adquirida → dispersão → colonização → sucessão → maturação.",
+    "Película adquirida → colonização microbiana → multiplicação microbiana → sucessão microbiana → maturação → dispersão."
+   ],
+   "a": 4,
+   "w": "Primeiro vem a película adquirida (proteínas da saliva, ainda sem bactéria), depois os colonizadores iniciais aderem, se multiplicam, outras espécies chegam (sucessão), o biofilme amadurece e, por fim, células se soltam para colonizar outros lugares (dispersão). Repare que é a mesma questão 4 do SM1: caiu de novo.",
+   "f": "SM2 de Cárie, 10/11/2026, prof. Sebastião Magno, questão 2 (questão original da prova)",
+   "net": false
+  },
+  {
+   "id": "c2_03",
+   "sm2": true,
+   "tema": "Biofilme",
+   "ctx": "Durante a formação do biofilme, os primeiros colonizadores são diferentes dos microrganismos encontrados em um biofilme maduro.",
+   "p": "Sobre a sucessão microbiana, assinale a alternativa correta:",
+   "o": [
+    "Ocorre substituição progressiva de bactérias aeróbias por anaeróbias.",
+    "O biofilme maduro é composto exclusivamente por bactérias aeróbias.",
+    "Não ocorre alteração na composição microbiana ao longo da maturação.",
+    "A maturação elimina completamente os microrganismos pioneiros.",
+    "A sucessão ocorre somente após a formação de uma cavidade de cárie."
+   ],
+   "a": 0,
+   "w": "Os pioneiros (estreptococos, que toleram oxigênio) consomem o oxigênio; o biofilme engrossa e as camadas de dentro ficam sem oxigênio, o que favorece as anaeróbias. Isso é sucessão. Ela não elimina os pioneiros (só muda a proporção) e acontece no biofilme de qualquer dente, com ou sem cavidade.",
+   "f": "SM2 de Cárie, 10/11/2026, prof. Sebastião Magno, questão 3 (questão original da prova)",
+   "net": false
+  },
+  {
+   "id": "c2_04",
+   "sm2": true,
+   "tema": "Microbiologia",
+   "ctx": "Um paciente trabalhador rural de 52 anos procura atendimento odontológico apresentando ulceração crônica dolorosa na mucosa jugal, com pontilhado hemorrágico característico (aspecto de \"lesão em amora\"). Abaixo o resultado da biópsia: \"Células leveduriformes redondas ou ovoides de tamanho variável (grande), com múltiplos brotamentos periféricos (blastoconídios) presos por base estreita, lembrando \"leme de navio\" ou \"mickey mouse\".",
+   "p": "A lesão apresentada é característica de qual organismo e qual ?",
+   "o": [
+    "Paracoccidioides brasiliensis - Fungo dimórfico",
+    "Escherichia coli - Fungo dimórfico",
+    "Streptococcus mutans - Bactéria Gram-positiva",
+    "Saccharomyces cerevisiae - fungo leveduriforme",
+    "HSV-1 (vírus do herpes simples tipo 1) - Vírus Classe I de Baltimore"
+   ],
+   "a": 0,
+   "w": "É a paracoccidioidomicose: trabalhador rural (o fungo vive no solo), úlcera crônica com pontilhado hemorrágico (\"estomatite moriforme\", em amora) e, na biópsia, levedura grande com vários brotamentos em volta, a \"roda de leme\" ou \"mickey mouse\". O Paracoccidioides brasiliensis é dimórfico: bolor no ambiente, levedura no corpo. A D (Saccharomyces) também é levedura, mas é o fermento do pão e não dá essa lesão; E. coli é bactéria.",
+   "f": "SM2 de Cárie, 10/11/2026, prof. Sebastião Magno, questão 4 (questão original da prova)",
+   "net": false
+  },
+  {
+   "id": "c2_05",
+   "sm2": true,
+   "tema": "Biofilme",
+   "ctx": "Um biofilme dental maduro foi analisado por microscopia e por técnicas de avaliação metabólica. Os pesquisadores identificaram maior contato com saliva e oxigênio nas regiões externas, enquanto as regiões profundas apresentavam menor disponibilidade de oxigênio e maior retenção de determinados metabólitos. Também observaram células de espécies diferentes ligadas entre si, presença de organismos capazes de se associar a grupos microbianos distintos e alteração da expressão gênica relacionada à concentração de moléculas sinalizadoras.\nA respeito da organização desse biofilme, avalie as afirmações:",
+   "p": "É correto apenas o que se afirma em:",
+   "o": [
+    "I, II e IV.",
+    "I, III e IV.",
+    "II, IV e V.",
+    "II, III, IV e V.",
+    "I, II, III e V."
+   ],
+   "a": 4,
+   "w": "Só a IV está errada, e o erro está na palavra \"completamente\". A matriz DIFICULTA a difusão (por isso o fundo tem menos oxigênio e acumula ácido), mas não é impermeável: se fosse, nem açúcar entraria. I = matriz muda a difusão; II = coagregação; III = organismos-ponte (ex.: Fusobacterium); V = quorum sensing. Todas certas.",
+   "f": "SM2 de Cárie, 10/11/2026, prof. Sebastião Magno, questão 5 (questão original da prova)",
+   "net": false,
+   "af": [
+    "A heterogeneidade observada decorre, em parte, da capacidade da matriz de modificar a difusão e a retenção de substâncias.",
+    "A adesão específica entre células de espécies diferentes caracteriza a coagregação e contribui para a incorporação de colonizadores secundários.",
+    "Organismos-ponte podem conectar grupos com diferentes afinidades de adesão, ampliando a complexidade estrutural da comunidade.",
+    "A menor concentração de oxigênio nas regiões profundas demonstra que a matriz constitui uma barreira completamente impermeável à passagem de gases e solutos.",
+    "A resposta à concentração de moléculas sinalizadoras pode modificar a expressão gênica da comunidade e integra os mecanismos de quorum sensing."
+   ],
+   "fixa": true
+  },
+  {
+   "id": "c2_06",
+   "sm2": true,
+   "tema": "Microbiologia",
+   "ctx": "Uma indústria farmacêutica identificou contaminação bacteriana em um lote de medicamentos. Durante a investigação, verificou-se que as bactérias encontravam-se na fase de crescimento em que ocorre intensa divisão celular e aumento exponencial da população.",
+   "p": "Essa fase do crescimento microbiano é denominada:",
+   "o": [
+    "Fase lag (adaptação).",
+    "Fase exponencial ou logarítmica.",
+    "Fase estacionária.",
+    "Fase de declínio.",
+    "Fase de esporulação."
+   ],
+   "a": 1,
+   "w": "Curva de crescimento bacteriano: lag (adaptação, quase não divide), log ou exponencial (divisão intensa, a população dobra a cada geração), estacionária (nutriente acaba, nascem tantas quanto morrem) e declínio (morrem mais que nascem). \"Esporulação\" não é fase da curva.",
+   "f": "SM2 de Cárie, 10/11/2026, prof. Sebastião Magno, questão 6 (questão original da prova)",
+   "net": false
+  },
+  {
+   "id": "c2_07",
+   "sm2": true,
+   "tema": "Etiologia",
+   "ctx": "A compreensão da etiologia da cárie dentária evoluiu consideravelmente nas últimas décadas. Atualmente, a cárie é definida como uma doença:",
+   "p": "Está correto o que se afirma em:",
+   "o": [
+    "I apenas.",
+    "I e II.",
+    "II apenas.",
+    "IV apenas.",
+    "I, II e IV."
+   ],
+   "a": 2,
+   "w": "Só a II. O conceito atual é de doença crônica NÃO transmissível, biofilme-açúcar dependente, causada pela disbiose. A I é o conceito antigo (infecciosa, causada só pelo S. mutans): ter S. mutans não é ter cárie, como caiu no SM1. Na I a palavra \"exclusivamente\" já entrega o erro.",
+   "f": "SM2 de Cárie, 10/11/2026, prof. Sebastião Magno, questão 7 (questão original da prova)",
+   "net": false,
+   "af": [
+    "Infectocontagiosa e transmissível, causada exclusivamente pela presença de Streptococcus mutans na cavidade bucal.",
+    "Crônica não transmissível, biofilme-açúcar dependente, resultante de um desequilíbrio na homeostase do biofilme dental que leva à desmineralização dos tecidos duros.",
+    "Genética, em que a qualidade do esmalte é o único fator determinante para o desenvolvimento da lesão, independente da dieta.",
+    "Aguda e autolimitada, que não requer intervenção profissional uma vez que o biofilme seja removido mecanicamente."
+   ],
+   "fixa": true
+  },
+  {
+   "id": "c2_08",
+   "sm2": true,
+   "tema": "Biofilme",
+   "ctx": "Sobre as características e consequências do biofilme dentário, assinale a alternativa INCORRETA:",
+   "p": "",
+   "o": [
+    "O biofilme proporciona um ambiente que protege os microrganismos contra agentes antimicrobianos.",
+    "O biofilme pode ser facilmente removido com enxaguantes bucais, sem necessidade de remoção mecânica.",
+    "Biofilmes periodontopatogênicos podem causar inflamação gengival e destruição periodontal.",
+    "Microrganismos presentes no biofilme podem fermentar carboidratos, reduzindo o pH e favorecendo a cárie.",
+    "A espessura do biofilme influencia a capacidade de difusão de substâncias, incluindo oxigênio e ácidos."
+   ],
+   "a": 1,
+   "w": "Pediu a INCORRETA. Biofilme organizado, protegido pela matriz, resiste ao enxaguante: o antisséptico mal penetra. Por isso a remoção é MECÂNICA (escova e fio); o bochecho só complementa. As outras quatro são verdadeiras.",
+   "f": "SM2 de Cárie, 10/11/2026, prof. Sebastião Magno, questão 8 (questão original da prova)",
+   "net": false
+  },
+  {
+   "id": "c2_09",
+   "sm2": true,
+   "tema": "Microbiologia",
+   "ctx": "A cavidade bucal abriga uma das microbiotas mais complexas do corpo humano, sendo composta por bactérias, fungos, vírus e protozoários em equilíbrio dinâmico. Analise as afirmativas a seguir:",
+   "p": "Está correto o que se afirma em:",
+   "o": [
+    "III apenas.",
+    "I e II apenas.",
+    "I, II e III.",
+    "I e III apenas.",
+    "I apenas."
+   ],
+   "a": 1,
+   "w": "A III troca o tipo de bactéria: LPS (endotoxina) fica na membrana EXTERNA, que só as gram-NEGATIVAS têm (ex.: Porphyromonas gingivalis, da doença periodontal). Gram-positiva tem parede grossa de peptideoglicano e fica roxa no Gram (I certa). Estreptococos são o gênero mais comum na boca e o S. mutans é o associado ao início da lesão em esmalte (II certa, como no resumo da matéria).",
+   "f": "SM2 de Cárie, 10/11/2026, prof. Sebastião Magno, questão 9 (questão original da prova)",
+   "net": false,
+   "af": [
+    "As bactérias gram-positivas possuem uma parede celular espessa composta majoritariamente por peptideoglicano, retendo o corante cristal violeta no Método de Gram.",
+    "O gênero Streptococcus é predominante na cavidade bucal, sendo o Streptococcus mutans o principal patógeno associado ao início do processo de desmineralização ácida.",
+    "As endotoxinas, como os lipopolissacarídeos (LPS), são componentes exclusivos da membrana externa de bactérias gram-positivas, desencadeando resposta inflamatória."
+   ],
+   "fixa": true
+  },
+  {
+   "id": "c2_10",
+   "sm2": true,
+   "tema": "Prevenção",
+   "ctx": "Um paciente apresenta acúmulo frequente de biofilme, consumo frequente de alimentos ricos em açúcares fermentáveis e lesões iniciais de cárie não cavitadas. Considerando os conteúdos de biofilme dental, fluoretos e higiene bucal, qual orientação apresenta a melhor fundamentação?",
+   "p": "",
+   "o": [
+    "Recomendar a substituição do dentifrício fluoretado por soluções fluoretadas para bochecho, uma vez que o flúor das soluções promove a remoção química do biofilme de forma mais eficiente.",
+    "Orientar o controle mecânico regular do biofilme com escova e fio dental, associado ao uso de dentifrício fluoretado.",
+    "Recomendar a remoção profissional do biofilme, pois os métodos de higiene domiciliar não interferem no desenvolvimento da cárie.",
+    "Orientar que a lesão inicial deve ser restaurada, independentemente da presença de cavitação ou da possibilidade de controle da atividade da doença.",
+    "Recomendar a interrupção do uso de dentifrício fluoretado, pois o flúor impede a remineralização natural promovida pela saliva."
+   ],
+   "a": 1,
+   "w": "Lesão inicial NÃO cavitada (mancha branca) se trata sem broca: controle do biofilme (escova e fio), creme dental com flúor e menos açúcar. Assim ela pode paralisar e remineralizar. Restaurar lesão não cavitada (D) é tratamento invasivo desnecessário; flúor não remove biofilme (A) e ajuda a remineralizar, não atrapalha (E).",
+   "f": "SM2 de Cárie, 10/11/2026, prof. Sebastião Magno, questão 10 (questão original da prova)",
+   "net": false
   }
  ]
 },
@@ -1118,7 +1343,7 @@ window.BANCOS = {
  "codigo": "ARA4380",
  "prof": "SEBASTIÃO MAGNO",
  "turma": "3007",
- "proxima": "SM2 terça 10/11, na sala, no horário da aula. AV terça 24/11",
+ "proxima": "SM2 foi terça 10/11. AV terça 24/11",
  "modos": [
   {
    "id": "completo",
@@ -1133,6 +1358,14 @@ window.BANCOS = {
    "temas": null,
    "sm1todo": true,
    "prefixo": "sb"
+  },
+  {
+   "id": "sm2ver",
+   "nome": "Prova do SM2",
+   "sub": "As 10 questões de 10/11, com gabarito comentado",
+   "temas": null,
+   "sm2todo": true,
+   "prefixo": "i2_"
   },
   {
    "id": "t-biofilme",
@@ -1787,6 +2020,200 @@ window.BANCOS = {
    ],
    "fixa": true,
    "sm1par": true
+  },
+  {
+   "id": "i2_01",
+   "sm2": true,
+   "tema": "Diagnóstico clínico",
+   "ctx": "Durante o exame clínico de dois pacientes, foram observadas alterações distintas:\nO Paciente I, de 42 anos, apresenta aumentos de volume bilaterais, de consistência óssea e recobertos por mucosa de aspecto normal, localizados na superfície lingual da mandíbula, na região de pré-molares. As alterações são assintomáticas e o paciente relata que estão presentes há vários anos.\nO Paciente II, de 9 anos, apresenta limitação dos movimentos da língua, dificuldade para projetá-la além dos incisivos inferiores e inserção do frênulo lingual próxima ao ápice da língua.",
+   "p": "Considerando os achados clínicos apresentados, assinale a alternativa CORRETA:",
+   "o": [
+    "O Paciente I apresenta exostose vestibular e o Paciente II apresenta macroglossia.",
+    "O Paciente I apresenta tórus palatino e o Paciente II apresenta língua fissurada.",
+    "O Paciente I apresenta osteoma e o Paciente II apresenta microglossia.",
+    "O Paciente I apresenta tórus mandibular e o Paciente II apresenta anquiloglossia.",
+    "O Paciente I apresenta fibroma ossificante e o Paciente II apresenta língua geográfica"
+   ],
+   "a": 3,
+   "w": "Paciente I: crescimento ósseo benigno, bilateral, na face LINGUAL da mandíbula, na altura dos pré-molares, assintomático há anos = tórus mandibular (o palatino fica no meio do palato; exostose é na vestibular). Paciente II: frênulo lingual curto, preso perto da ponta, língua que não passa dos incisivos = anquiloglossia (\"língua presa\").",
+   "f": "SM2 de Interações, 10/11/2026, prof. Sebastião Magno, questão 1 (questão original da prova)",
+   "net": false
+  },
+  {
+   "id": "i2_02",
+   "sm2": true,
+   "tema": "Glândulas salivares",
+   "ctx": "A mucocele é uma lesão comum das glândulas salivares menores decorrente de extravasamento de muco.",
+   "p": "O seu mecanismo patogênico primário é:",
+   "o": [
+    "Obstrução do ducto salivar por um cálculo, levando à retenção progressiva de saliva no interior da glândula.",
+    "Ruptura ou trauma do ducto de uma glândula salivar, com extravasamento de muco para o tecido conjuntivo adjacente.",
+    "Proliferação neoplásica das células epiteliais ductais, provocando produção excessiva e acúmulo de secreção salivar.",
+    "Processo inflamatório crônico da glândula salivar, causando destruição dos ácinos e formação de uma cavidade preenchida por muco.",
+    "Infecção bacteriana do ducto salivar, levando à obstrução ductal e ao acúmulo de secreção no interior da glândula."
+   ],
+   "a": 1,
+   "w": "Mucocele de extravasamento: o paciente morde o lábio, o ducto de uma glândula menor rompe e o muco escapa para o conjuntivo ao redor. Obstrução por cálculo (A) é sialolitíase. É a mesma questão 4 do SM1: caiu de novo.",
+   "f": "SM2 de Interações, 10/11/2026, prof. Sebastião Magno, questão 2 (questão original da prova)",
+   "net": false
+  },
+  {
+   "id": "i2_03",
+   "sm2": true,
+   "tema": "Patologia geral",
+   "ctx": "A hipertrofia e a hiperplasia são alterações adaptativas que podem resultar no aumento do volume ou profliferação celular de um tecido ou órgão.",
+   "p": "Sobre esses processos, assinale a alternativa CORRETA:",
+   "o": [
+    "A hipertrofia corresponde ao aumento do número de células, enquanto a hiperplasia corresponde ao aumento do tamanho das células.",
+    "A hipertrofia ocorre exclusivamente em tecidos constituídos por células capazes de sofrer divisão celular.",
+    "A hiperplasia caracteriza-se pelo aumento do número de células, enquanto a hipertrofia corresponde ao aumento do tamanho das células.",
+    "Hiperplasia e hipertrofia são alterações exclusivamente neoplásicas e apresentam crescimento celular autônomo.",
+    "A hipertrofia resulta necessariamente de um processo inflamatório crônico."
+   ],
+   "a": 2,
+   "w": "HiperPLASIA = mais células (plasia, formação). HiperTROFIA = células maiores (trofia, nutrição). A hipertrofia acontece justamente em células que NÃO se dividem (ex.: músculo). São adaptações, não neoplasias. Mesma questão 5 do SM1.",
+   "f": "SM2 de Interações, 10/11/2026, prof. Sebastião Magno, questão 3 (questão original da prova)",
+   "net": false
+  },
+  {
+   "id": "i2_04",
+   "sm2": true,
+   "tema": "Biofilme",
+   "ctx": "Um paciente apresenta gengiva avermelhada e sangramento à escovação, sem perda documentada de inserção periodontal. O quadro é mais compatível com: (Referência: Newman et al. Carranza's Clinical Periodontology — gengivite.)",
+   "p": "",
+   "o": [
+    "Gengivite associada ao biofilme dentário.",
+    "Melanoma oral.",
+    "Endocardite infecciosa estabelecida.",
+    "Necrose pulpar em todos os dentes.",
+    "Cárie profunda obrigatória."
+   ],
+   "a": 0,
+   "w": "Gengiva vermelha que sangra na escovação e SEM perda de inserção = gengivite (inflamação só da gengiva, reversível com controle do biofilme). Se houvesse perda de inserção, seria periodontite.",
+   "f": "SM2 de Interações, 10/11/2026, prof. Sebastião Magno, questão 4 (questão original da prova)",
+   "net": false
+  },
+  {
+   "id": "i2_05",
+   "sm2": true,
+   "tema": "Biofilme",
+   "ctx": "A cárie dentária é uma doença multifatorial, biofilme-dependente e modulada pelo açúcar, que resulta no desequilíbrio do processo de desmineralização e remineralização dos tecidos duros do dente.",
+   "p": "Sobre o mecanismo bioquímico e microbiológico que desencadeia a perda mineral na cárie, assinale a alternativa correta:",
+   "o": [
+    "O pH crítico da dentina e do cemento é superior ao pH crítico do esmalte, tornando-os menos vulneráveis à dissolução ácida em pH neutro.",
+    "A desmineralização ocorre predominantemente quando o pH do biofilme se eleva acima de 6,5, provocando a precipitação de íons cálcio e fosfato na superfície dentária.",
+    "As bactérias pioneiras do biofilme inicial são estritamente acidogênicas e acidúricas, predominando os Lactobacilli desde o primeiro dia de formação da placa dental.",
+    "O biofilme cariogênico metaboliza os carboidratos fermentáveis da dieta, produzindo ácidos orgânicos (principalmente lático) que reduzem o pH local abaixo do pH crítico do esmalte.",
+    "O flúor atua exclusivamente aumentando a solubilidade da hidroxiapatita, tornando o dente mais suscetível aos ataques ácidos subsequentes."
+   ],
+   "a": 3,
+   "w": "As bactérias fermentam o açúcar e soltam ácido (sobretudo lático); o pH cai abaixo do crítico (~5,5 no esmalte) e o mineral se dissolve. A B está ao contrário: pH ACIMA de 6,5 é quando o cálcio e o fosfato voltam (remineralização). A A erra porque dentina e cemento têm pH crítico mais alto (~6,2-6,7), ou seja, são MAIS vulneráveis. Lactobacilos não são pioneiros (C) e o flúor diminui a solubilidade (E).",
+   "f": "SM2 de Interações, 10/11/2026, prof. Sebastião Magno, questão 5 (questão original da prova)",
+   "net": false
+  },
+  {
+   "id": "i2_06",
+   "sm2": true,
+   "tema": "Endocardite e bacteremia",
+   "ctx": "A endocardite infecciosa é uma doença caracterizada pela infecção do endocárdio, frequentemente envolvendo as válvulas cardíacas, e pode estar associada à disseminação de bactérias da cavidade oral pela corrente sanguínea. Determinados procedimentos odontológicos podem favorecer a ocorrência de bacteremia, especialmente em pacientes com condições cardíacas predisponentes. Nesse contexto, a identificação dos fatores de risco e a adoção de medidas preventivas são fundamentais para reduzir a ocorrência de complicações. (Referência: PONTES. Medidas profiláticas para a endocardite infecciosa provocada por bactérias da cavidade oral. Instituto Universitário Egas Moniz, 2022.)\nConsiderando os mecanismos de desenvolvimento da endocardite infecciosa e as medidas profiláticas recomendadas na prática odontológica, analise as afirmativas a seguir e classifique-as como Verdadeiras (V) ou Falsas (F).",
+   "p": "Assinale a alternativa que apresenta a sequência CORRETA:",
+   "o": [
+    "V, V, F, V.",
+    "V, F, V, V.",
+    "F, V, V, F.",
+    "V, F, F, V.",
+    "F, F, V, V."
+   ],
+   "a": 1,
+   "w": "I é VERDADEIRA: escovar, mastigar e passar fio também jogam bactéria no sangue, e muito mais quando a gengiva está inflamada; por isso a saúde bucal é a principal prevenção. II é FALSA: profilaxia não é para \"todo cardíaco\" nem para \"qualquer procedimento\"; é só para os de alto risco (endocardite prévia, prótese valvar, algumas cardiopatias congênitas) e procedimentos com manipulação gengival ou periapical (diretrizes AHA 2007/2021). III e IV verdadeiras. Sequência V, F, V, V.",
+   "f": "SM2 de Interações, 10/11/2026, prof. Sebastião Magno, questão 6 (questão original da prova)",
+   "net": false,
+   "af": [
+    "A bacteremia de origem oral pode ocorrer durante procedimentos odontológicos invasivos, mas também em atividades cotidianas, como a escovação dentária, especialmente na presença de inflamação gengival.",
+    "A profilaxia antibiótica deve ser administrada rotineiramente a todos os pacientes com doenças cardíacas, independentemente do tipo de procedimento odontológico realizado.",
+    "Pacientes com histórico de endocardite infecciosa ou portadores de próteses valvares cardíacas podem necessitar de profilaxia antibiótica antes de procedimentos que envolvam manipulação gengival ou da região periapical dos dentes.",
+    "A prevenção da endocardite infecciosa envolve a manutenção da saúde bucal, a identificação de pacientes com maior risco e a utilização criteriosa de antibióticos quando houver indicação clínica."
+   ],
+   "fixa": true
+  },
+  {
+   "id": "i2_07",
+   "sm2": true,
+   "tema": "Lesões fundamentais",
+   "ctx": "Durante o exame clínico, o cirurgião-dentista observa uma lesão bucal elevada, sólida, superficial e com aproximadamente 4 mm de diâmetro, sem conteúdo líquido.",
+   "p": "Como essa lesão é classificada?",
+   "o": [
+    "Vesícula",
+    "Pápula",
+    "Pústula",
+    "Úlcera",
+    "Erosão"
+   ],
+   "a": 1,
+   "w": "Elevada + sólida + pequena = pápula. Se tivesse líquido seria vesícula (ou bolha, se grande); com pus, pústula. Úlcera e erosão são perdas de tecido, não elevações. Sólida e maior (acima de ~5 mm a 1 cm) seria nódulo.",
+   "f": "SM2 de Interações, 10/11/2026, prof. Sebastião Magno, questão 7 (questão original da prova)",
+   "net": false
+  },
+  {
+   "id": "i2_08",
+   "sm2": true,
+   "tema": "Patologia geral",
+   "ctx": "Após uma agressão celular, uma célula consegue recuperar sua estrutura e função quando o agente agressor é removido.",
+   "p": "Esse processo é denominado:",
+   "o": [
+    "Lesão celular irreversível",
+    "Necrose",
+    "Lesão celular reversível",
+    "Apoptose obrigatória",
+    "Hipertrofia patológica"
+   ],
+   "a": 2,
+   "w": "Se a célula volta ao normal quando o agressor sai, a lesão foi REVERSÍVEL (lesão não letal). Irreversível termina em morte celular (necrose ou apoptose).",
+   "f": "SM2 de Interações, 10/11/2026, prof. Sebastião Magno, questão 8 (questão original da prova)",
+   "net": false
+  },
+  {
+   "id": "i2_09",
+   "sm2": true,
+   "tema": "Glândulas salivares",
+   "ctx": "Um paciente de 44 anos chegou à clínica com uma massa dura presa ao orifício do Ducto de Wharton, correspondente a Glândula Submandibular. Foi solicitado exame radiográfico oclusal, feito em plano transversal para auxiliar no diagnóstico, e, consequentemente, na escolha da melhor conduta para o tratamento. Considerando o tamanho e a posição da massa calcificada, com relação ao ducto, o cirurgião-dentista optou inicialmente por uma conduta conservadora e menos invasiva, com o objetivo de descomprimir a glândula salivar.",
+   "p": "Qual alternativa descreve corretamente a conduta aplicada?",
+   "o": [
+    "Excisão cirúrgica completa da glândula salivar menor associada, com o objetivo de eliminar a massa e a glândula, evitando a recidiva da condição.",
+    "Marsupialização da glândula salivar maior associada, formando uma janela cirúrgica, com sutura nas bordas da ferida para evitar o fechamento precoce.",
+    "Biópsia incisional, remoção cirúrgica de um fragmento da porção mais diferenciada da glândula, e envio do conteúdo para análise histopatológica.",
+    "Palpação, massagem local e ordenha da glândula, com o intuito de conduzir a expulsão do fragmento pelo próprio orifício do Ducto de Wharton.",
+    "Biópsia excisional, remoção cirúrgica completa da glândula salivar menor com a massa calcificada, somada a uma margem de tecido sadio, e envio do conteúdo para análise histopatológica."
+   ],
+   "a": 3,
+   "w": "É um sialolito (cálculo) bem na saída do ducto de Wharton. Pequeno e perto do orifício, a conduta conservadora é ordenhar: massagem e pressão na glândula para o cálculo sair pelo próprio orifício (pode-se ajudar com sialogogo, como limão). Biópsia não cabe: o diagnóstico já é claro pela radiografia oclusal, e a submandibular é glândula MAIOR (A e E falam de menor). Marsupialização é para rânula.",
+   "f": "SM2 de Interações, 10/11/2026, prof. Sebastião Magno, questão 9 (questão original da prova)",
+   "net": false
+  },
+  {
+   "id": "i2_10",
+   "sm2": true,
+   "tema": "Glândulas salivares",
+   "ctx": "Sobre a rânula, informe se é verdadeiro (V) ou falso (F) para o que se afirma e assinale a alternativa com a sequência correta.",
+   "p": "",
+   "o": [
+    "V - V - F - F.",
+    "F - F - V - V.",
+    "F - V - V - F.",
+    "V - F - V - F.",
+    "V - V - V - V."
+   ],
+   "a": 3,
+   "w": "I V: rânula é a mucocele do assoalho, quase sempre da sublingual (o nome vem de \"barriga de rã\"). II F: ela fica LATERAL à linha média; quem fica na linha média é o cisto dermoide, e é isso que ajuda a diferenciar. III V: crianças e adultos jovens, costuma ser maior e pode levantar a língua. IV F: a marsupialização recidiva muito; o tratamento mais eficaz é remover a glândula sublingual (Neville). Sequência V-F-V-F.",
+   "f": "SM2 de Interações, 10/11/2026, prof. Sebastião Magno, questão 10 (questão original da prova)",
+   "net": false,
+   "af": [
+    "A rânula é um termo utilizado principalmente para designar mucoceles (reações de extravasamento de muco) que ocorrem no assoalho bucal, frequentemente relacionadas à glândula sublingual.",
+    "Em geral, a rânula se localiza exatamente na linha média do assoalho bucal, característica que auxilia no diagnóstico diferencial com o cisto dermoide, também da linha média.",
+    "As rânulas são observadas mais frequentemente em crianças e adultos jovens, tendem a ser maiores que mucoceles em outras localizações intraorais e podem preencher o assoalho bucal, elevando a língua.",
+    "A marsupialização costuma ser o tratamento de escolha para rânulas grandes, sendo rara a necessidade de remoção da glândula sublingual para controle da lesão."
+   ],
+   "fixa": true
   }
  ]
 }

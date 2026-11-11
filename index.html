@@ -15,7 +15,7 @@
 :root{
   --porcelana:#eef1f5; --branco:#ffffff; --grafite:#1a2233; --cinza:#5b6578; --linha:#d8dee8;
   --certo:#13824f; --certo-claro:#e2f4ea; --errado:#cf3434; --errado-claro:#fdeaea;
-  --sm1:#2346a8; --par:#1e9e5a;
+  --sm1:#2346a8; --sm2:#7a3db8; --par:#1e9e5a;
   --cor:#2346a8; --cor-claro:#e6ecfa; --cor-escuro:#1a3480;
   --raio:16px;
 }
@@ -96,8 +96,9 @@ p{margin:0}
 .fracos b{display:block}.fracos small{opacity:.8}
 .legenda{display:grid;gap:6px;font-size:14px;color:var(--cinza)}
 .tag{display:inline-block;padding:1px 9px;border-radius:999px;font-size:12px;font-weight:700;color:#fff;font-style:normal;margin-right:6px;vertical-align:1px;line-height:1.6}
-.tag.sm1{background:var(--sm1)}.tag.par{background:var(--par)}
+.tag.sm1{background:var(--sm1)}.tag.sm2{background:var(--sm2)}.tag.par{background:var(--par)}
 .nota-sm1{font-size:14px;font-weight:700;color:var(--sm1)}
+.nota-sm2{font-size:14px;font-weight:700;color:var(--sm2)}
 .nota-par{font-size:14px;font-weight:700;color:var(--par)}
 
 /* ---------- prova ---------- */
@@ -266,6 +267,7 @@ function pinta(){
 function poolDe(m){
   const b = banco();
   if (m.erros) { const e = errosDe(); return b.q.filter(q => e.includes(q.id)); }
+  if (m.sm2todo) return b.q.filter(q => q.sm2 && (!m.prefixo || q.id.startsWith(m.prefixo))).sort((x,y)=>x.id.localeCompare(y.id,'pt',{numeric:true}));
   if (m.sm1todo) return b.q.filter(q => q.sm1 && (!m.prefixo || q.id.startsWith(m.prefixo))).sort((x,y)=>x.id.localeCompare(y.id,'pt',{numeric:true}));
   if (m.img) return b.q.filter(q => q.img);
   if (m.af) return b.q.filter(q => q.af && q.af.length);
@@ -273,14 +275,15 @@ function poolDe(m){
 }
 function sorteia(m){
   const pool = poolDe(m);
-  if (m.sm1todo) return pool.map(q => ({q, ordem:[0,1,2,3,4]}));
+  if (m.sm1todo || m.sm2todo) return pool.map(q => ({q, ordem:[0,1,2,3,4]}));
   let esc10;
   if (m.erros) esc10 = mistura(pool).slice(0,10);
   else {
-    const sm1 = pool.filter(q => q.sm1);
-    const n = Math.min(sm1.length, Math.floor(Math.random()*3)); /* 0, 1 ou 2 do SM1, nunca mais */
-    const pegas = mistura(sm1).slice(0,n);
-    esc10 = mistura(pegas.concat(mistura(pool.filter(q => !q.sm1)).slice(0, 10-n)));
+    const sm1 = pool.filter(q => q.sm1), sm2 = pool.filter(q => q.sm2);
+    const n1 = Math.min(sm1.length, Math.floor(Math.random()*3)); /* 0, 1 ou 2 do SM1, nunca mais */
+    const n2 = Math.min(sm2.length, Math.floor(Math.random()*3)); /* 0, 1 ou 2 do SM2, nunca mais */
+    const pegas = mistura(sm1).slice(0,n1).concat(mistura(sm2).slice(0,n2));
+    esc10 = mistura(pegas.concat(mistura(pool.filter(q => !q.sm1 && !q.sm2)).slice(0, 10-pegas.length)));
   }
   return esc10.map(q => ({ q, ordem: (q.fixa || q.af) ? [0,1,2,3,4] : mistura([0,1,2,3,4]) }));
 }
@@ -309,9 +312,9 @@ function modoFracos(){
 function partes(){
   const ms = modos();
   const completo = ms.find(m => m.id === 'completo') || ms[0];
-  const sm1 = ms.find(m => m.sm1todo), erros = ms.find(m => m.erros);
-  const temas = ms.filter(m => m !== completo && m !== sm1 && m !== erros && poolDe(m).length >= 3);
-  return {ms, completo, sm1, erros, temas};
+  const sm1 = ms.find(m => m.sm1todo), sm2 = ms.find(m => m.sm2todo), erros = ms.find(m => m.erros);
+  const temas = ms.filter(m => m !== completo && m !== sm1 && m !== sm2 && m !== erros && poolDe(m).length >= 3);
+  return {ms, completo, sm1, sm2, erros, temas};
 }
 
 /* ---------- INÍCIO: escolher a matéria ---------- */
@@ -331,8 +334,8 @@ function inicio(){
 /* ---------- TELA DA MATÉRIA ---------- */
 function materia(){
   partida = null; ultimaVista = -1; pinta();
-  const b = banco(), {completo, sm1, erros, temas} = partes();
-  const nErr = erros ? poolDe(erros).length : 0, nSm1 = sm1 ? poolDe(sm1).length : 0;
+  const b = banco(), {completo, sm1, sm2, erros, temas} = partes();
+  const nErr = erros ? poolDe(erros).length : 0, nSm1 = sm1 ? poolDe(sm1).length : 0, nSm2 = sm2 ? poolDe(sm2).length : 0;
   const melhor = ler('jogo-melhor-'+MAT, null);
   tela(`
   <div class="topo"><button class="voltar" id="vol">${IC.esq}Matérias</button></div>
@@ -345,12 +348,13 @@ function materia(){
   <button class="grande aperta" data-go="${completo.id}"><span class="ic">${IC.play}</span><span><b>Fazer simulado</b><small>10 questões sorteadas, nota de 0 a 1</small></span></button>
   <div class="menu">
     ${sm1 && nSm1 ? `<button class="item" data-go="${sm1.id}"><span class="ic">${IC.folha}</span><span class="t"><b>Prova do SM1</b><small>As ${nSm1} questões que caíram, na ordem da prova</small></span><span class="seta">${IC.seta}</span></button>` : ''}
+    ${sm2 && nSm2 ? `<button class="item" data-go="${sm2.id}"><span class="ic">${IC.folha}</span><span class="t"><b>${esc(sm2.nome||'Prova do SM2')}</b><small>${esc(sm2.sub||('As '+nSm2+' questões, com gabarito comentado'))}</small></span><span class="seta">${IC.seta}</span></button>` : ''}
     ${temas.length ? `<button class="item" id="temas"><span class="ic">${IC.alvo}</span><span class="t"><b>Treinar um assunto</b><small>${temas.length} assuntos para escolher</small></span><span class="seta">${IC.seta}</span></button>` : ''}
     ${erros ? `<button class="item" data-go="${erros.id}" ${nErr?'':'disabled'}><span class="ic">${IC.volta}</span><span class="t"><b>Revisar meus erros</b><small>${nErr ? nErr+(nErr===1?' questão guardada':' questões guardadas') : 'Quando você errar, a questão aparece aqui'}</small></span><span class="seta">${IC.seta}</span></button>` : ''}
     <button class="item" id="rev"><span class="ic">${IC.livro}</span><span class="t"><b>Ler o resumo</b><small>O que mais cai, em tópicos curtos</small></span><span class="seta">${IC.seta}</span></button>
   </div>
   <section class="bloco"><h2>Meu desempenho</h2>${desempenhoHtml()}</section>
-  ${nSm1 ? `<section class="bloco legenda"><span><i class="tag sm1">SM1</i>a questão caiu igual no simulado 1</span><span><i class="tag par">parecida</i>semelhante a uma do simulado 1</span></section>` : ''}`);
+  ${nSm1 || nSm2 ? `<section class="bloco legenda">${nSm1 ? '<span><i class="tag sm1">SM1</i>a questão caiu igual no simulado 1</span>' : ''}${nSm2 ? '<span><i class="tag sm2">SM2</i>a questão caiu igual no simulado 2</span>' : ''}${nSm1 ? '<span><i class="tag par">parecida</i>semelhante a uma do simulado 1</span>' : ''}</section>` : ''}`);
   const {ms} = partes();
   $('#vol').onclick = inicio;
   app.querySelectorAll('[data-mat]').forEach(el => el.onclick = () => { MAT = el.dataset.mat; grava('jogo-mat', MAT); materia(); });
@@ -401,7 +405,7 @@ function questao(anima){
   const P = partida, it = P.itens[P.i], q = it.q, total = P.itens.length;
   const respondidas = P.itens.filter(x => x.conf).length;
   const nova = ultimaVista !== P.i; ultimaVista = P.i;
-  const marca = q.sm1 ? '<p class="nota-sm1">(questão do simulado 1)</p>' : q.sm1par ? '<p class="nota-par">(semelhante à do SM1)</p>' : '';
+  const marca = q.sm2 ? '<p class="nota-sm2">(questão do simulado 2)</p>' : q.sm1 ? '<p class="nota-sm1">(questão do simulado 1)</p>' : q.sm1par ? '<p class="nota-par">(semelhante à do SM1)</p>' : '';
   app.innerHTML = `
   <div class="barra">
     <div class="barraL"><button class="fechar" id="sair">${IC.x}Sair</button><span class="ponto" aria-live="polite">${nota1(acertos())} <small>de ${nota1(total)}</small></span></div>
@@ -487,7 +491,7 @@ document.addEventListener('keydown', ev => {
 function resultado(){
   const P = partida, total = P.itens.length, c = acertos();
   const pct = c/total;
-  if (!P.modo.sm1todo && !P.modo.erros && total===10) { const m = ler('jogo-melhor-'+MAT, null); if (m===null || c>m) grava('jogo-melhor-'+MAT, c); }
+  if (!P.modo.sm1todo && !P.modo.sm2todo && !P.modo.erros && total===10) { const m = ler('jogo-melhor-'+MAT, null); if (m===null || c>m) grava('jogo-melhor-'+MAT, c); }
   const msg = pct>=0.8 ? 'Mandou muito. Tá pronto pra prova.' : pct>=0.5 ? 'Bom caminho. Refaz as que errou que fixa.' : 'Normal no começo. Lê o resumo e tenta de novo.';
   const nErr = P.itens.filter(x => x.resp !== x.certa).length;
   partida = null;
@@ -507,7 +511,7 @@ function resultado(){
   <section class="bloco"><h2>Questão por questão</h2>${P.itens.map((it,k) => `<div class="rq"><span class="n ${it.resp===it.certa?'c':'e'}">${k+1}</span><div><b>${it.resp===it.certa?'Certa':'Errada'}</b>, <small>${esc(it.q.tema)}</small><br><small>Certa: ${L[it.certa]}. ${esc(it.q.w)}</small></div></div>`).join('')}</section>`);
   $('#vol').onclick = materia;
   if ($('#refaz')) $('#refaz').onclick = () => { const erradas = P.itens.filter(x => x.resp !== x.certa).map(x => ({...x, resp:null, conf:false, riscadas:[], pulou:false, dica:false})); partida = { modo:{nome:'Refazer as que errei', erros:true}, itens:erradas, i:0 }; ultimaVista = -1; questao(); };
-  $('#novo').onclick = () => comeca(P.modo.erros || P.modo.sm1todo ? partes().completo : P.modo);
+  $('#novo').onclick = () => comeca(P.modo.erros || P.modo.sm1todo || P.modo.sm2todo ? partes().completo : P.modo);
 }
 
 /* ---------- RESUMO ---------- */
