@@ -14,7 +14,7 @@ VOZ = 'pt-BR-AntonioNeural'
 NODE = r'C:\Users\rafar\AppData\Local\hermes\tools\node-26.7.0-win32-x64\node.exe'
 V = time.strftime('%Y%m%d%H%M')
 
-js = "global.window={};require('./bancos.js');const out=[];for(const k of ['bases','carie','inter']){const m=window.BANCOS[k];if(!m)continue;for(const q of m.q){if(!q||!q.p||!Array.isArray(q.o))continue;out.push({q:(q.ctx?q.ctx+'\\n\\n':'')+q.p,o:q.o.map(String)})}}process.stdout.write(JSON.stringify(out))"
+js = "global.window={};require('./bancos.js');require('./banco-farmaco.js');require('./banco-imagino.js');const out=[];for(const k of ['bases','carie','inter','farmaco','imagino']){const m=window.BANCOS[k];if(!m)continue;for(const q of m.q){if(!q||!q.p||!Array.isArray(q.o))continue;out.push({q:(q.ctx?q.ctx+'\\n\\n':'')+q.p,o:q.o.map(String)})}}process.stdout.write(JSON.stringify(out))"
 dados = json.loads(subprocess.check_output([NODE, '-e', js], cwd=RAIZ, text=True, encoding='utf-8'))
 h = lambda s: hashlib.sha1(s.encode('utf-8')).hexdigest()[:12]
 
