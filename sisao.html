@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Show do Sisão</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --palco:#121a33; --palco2:#1b2650; --tinta:#f3f5fb; --apagado:#a9b3cf; --linha:#33407a;
+  --ouro:#ffd43b; --ouro-escuro:#8a6a00; --acerto:#2fbf71; --erro:#ff5a6e; --caneta:#5b7dff;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--palco);color:var(--tinta);font-family:'Atkinson Hyperlegible',Arial,sans-serif;font-size:17px;line-height:1.5;min-height:100vh}
+h1,h2,.disp{font-family:'Bricolage Grotesque',Arial,sans-serif;letter-spacing:-.01em;margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible{outline:3px solid var(--ouro);outline-offset:2px}
+.wrap{max-width:760px;margin:0 auto;padding:16px}
+a.volta{color:var(--apagado);text-decoration:none;font-size:15px}
+.logo{font-size:40px;font-weight:800;line-height:1;margin:18px 0 4px;color:var(--ouro)}
+.sub{color:var(--apagado);margin:0 0 22px}
+.lbl{font-weight:700;margin:18px 0 8px}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{background:var(--palco2);border:2px solid var(--linha);border-radius:999px;padding:10px 16px}
+.chip[aria-pressed="true"]{border-color:var(--ouro);background:#2a2a1a;color:var(--ouro)}
+.chip small{color:var(--apagado);margin-left:6px}
+.big{display:block;width:100%;margin-top:26px;background:var(--ouro);color:#1b1500;border:0;border-radius:14px;padding:16px;font-family:'Bricolage Grotesque',Arial,sans-serif;font-weight:800;font-size:22px}
+.big:disabled{opacity:.4;cursor:not-allowed}
+.regras{color:var(--apagado);font-size:15px;margin-top:18px}
+.regras li{margin:4px 0}
+.erro{color:var(--erro);font-size:14px;min-height:20px;margin-top:8px}
+/* jogo */
+.topo{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.vale{font-family:'Bricolage Grotesque',Arial,sans-serif;font-weight:800;font-size:20px;color:var(--ouro)}
+.mini{font-size:14px;color:var(--apagado)}
+.layout{display:grid;grid-template-columns:1fr 170px;gap:16px;margin-top:14px}
+@media (max-width:640px){.layout{grid-template-columns:1fr}.escada{display:none}}
+.cartao{background:var(--palco2);border:1px solid var(--linha);border-radius:16px;padding:18px}
+.tema{display:inline-block;font-size:13px;color:var(--apagado);border:1px solid var(--linha);border-radius:999px;padding:2px 10px;margin-bottom:10px}
+.ctx{color:var(--apagado);font-size:15px;margin:0 0 10px;white-space:pre-line}
+.perg{font-size:19px;font-weight:700;margin:0 0 14px;white-space:pre-line}
+.op{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;background:var(--palco);border:2px solid var(--linha);border-radius:12px;padding:12px;margin:8px 0}
+.op:hover:not(:disabled){border-color:var(--caneta)}
+.op .le{flex:0 0 30px;height:30px;border-radius:50%;display:grid;place-items:center;font-weight:700;background:var(--palco2);border:1px solid var(--linha)}
+.op[aria-checked="true"]{border-color:var(--ouro)}
+.op[aria-checked="true"] .le{background:var(--ouro);color:#1b1500}
+.op.certa{border-color:var(--acerto);background:#12321f}
+.op.errada{border-color:var(--erro);background:#3a1620}
+.op.fora{opacity:.25}
+.op:disabled{cursor:default}
+.barra{height:6px;border-radius:3px;background:var(--caneta);margin-top:6px}
+.ajudas{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.aj{background:transparent;border:1.5px solid var(--linha);border-radius:10px;padding:8px 12px;font-size:15px}
+.aj:disabled{opacity:.35;cursor:not-allowed}
+.aj.parar{border-color:var(--ouro);color:var(--ouro)}
+.conf{display:block;width:100%;margin-top:14px;background:var(--caneta);color:#fff;border:0;border-radius:12px;padding:14px;font-weight:700;font-size:18px}
+.conf:disabled{opacity:.4}
+.porque{margin-top:14px;border-left:4px solid var(--acerto);padding:8px 12px;background:#0f2a1b;border-radius:0}
+.porque.ruim{border-left-color:var(--erro);background:#2c1018}
+.escada{list-style:none;margin:0;padding:0;font-size:14px}
+.escada li{display:flex;justify-content:space-between;padding:3px 10px;border-radius:6px;color:var(--apagado)}
+.escada li.feito{color:var(--acerto)}
+.escada li.agora{background:var(--ouro);color:#1b1500;font-weight:700}
+.escada li.seguro{font-weight:700}
+.fim h2{font-size:30px;color:var(--ouro);margin:10px 0}
+.revisao{margin-top:18px}
+.revisao .item{border-top:1px solid var(--linha);padding:12px 0}
+.revisao .item b{display:block}
+@media (prefers-reduced-motion:no-preference){.op.certa{animation:pisca .5s 2}}
+@keyframes pisca{50%{background:#1e5a36}}
+</style>
+</head>
+<body>
+<main class="wrap" id="app"></main>
+<script src="bancos.js?v=202611102330"></script>
+<script>
+(function(){
+const B = window.BANCOS || {};
+const NOMES = {bases:'Bases Morfológicas', carie:'Cárie', inter:'Interações'};
+const PREMIOS = [1,2,3,4,5,10,20,30,40,50,100,200,300,500,1000]; // em mil
+const SEGUROS = [4, 9]; // índice da pergunta que garante o valor (5ª e 10ª)
+const app = document.getElementById('app');
+const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const reais = mil => mil >= 1000 ? 'R$ 1 milhão' : 'R$ ' + mil + ' mil';
+const emb = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+let escolha = new Set(['carie','inter']);
+try { const s = JSON.parse(localStorage.getItem('sisao-materias') || 'null'); if (Array.isArray(s) && s.length) escolha = new Set(s); } catch(e) {}
+
+function dificuldade(q){
+  const txt = (q.ctx || '') + ' ' + (q.p || '');
+  let s = txt.length / 60;
+  if (/\bI{1,3}\.|\bI{1,3}\s*[-–)]|assertiva|asserç|afirmativa|afirmaç/i.test(txt)) s += 6;
+  if (q.sm1) s += 3;
+  return s;
+}
+function montar(){
+  const pool = [];
+  escolha.forEach(m => (B[m] && B[m].q || []).forEach(q => { if (q && q.p && Array.isArray(q.o) && q.o.length >= 4 && typeof q.a === 'number') pool.push(Object.assign({mat:m}, q)); }));
+  if (pool.length < 15) return null;
+  const ord = emb(pool).sort((a, b) => dificuldade(a) - dificuldade(b));
+  const t = Math.floor(ord.length / 3);
+  const faixas = [ord.slice(0, t), ord.slice(t, 2*t), ord.slice(2*t)];
+  const out = [];
+  faixas.forEach(f => emb(f).slice(0, 5).forEach(q => out.push(q)));
+  return { perguntas: out, reserva: pool.filter(q => !out.includes(q)) };
+}
+
+function capa(msg){
+  const total = m => (B[m] && B[m].q || []).length;
+  app.innerHTML = `
+  <a class="volta" href="./">← Voltar ao simulado</a>
+  <h1 class="logo">Show do Sisão</h1>
+  <p class="sub">15 perguntas, da mais fácil à mais difícil. Quanto mais longe, maior o prêmio.</p>
+  <p class="lbl">Escolha a matéria (pode juntar mais de uma)</p>
+  <div class="chips">
+    ${Object.keys(NOMES).filter(m => B[m]).map(m => `<button type="button" class="chip" data-m="${m}" aria-pressed="${escolha.has(m)}">${NOMES[m]}<small>${total(m)}</small></button>`).join('')}
+    <button type="button" class="chip" data-m="todas" aria-pressed="false">As três juntas</button>
+  </div>
+  <div class="erro" id="err">${esc(msg || '')}</div>
+  <button type="button" class="big" id="ir">Começar o jogo</button>
+  <ul class="regras">
+    <li>Na 5ª e na 10ª pergunta o prêmio fica garantido.</li>
+    <li>Errou: leva o último valor garantido. Parou: leva o que já ganhou.</li>
+    <li>Ajudas, uma vez cada: tirar 2 erradas, a turma opina e pular (3 pulos).</li>
+  </ul>`;
+  app.querySelectorAll('.chip').forEach(b => b.onclick = () => {
+    const m = b.dataset.m;
+    if (m === 'todas') escolha = new Set(Object.keys(NOMES).filter(k => B[k]));
+    else escolha.has(m) ? escolha.delete(m) : escolha.add(m);
+    try { localStorage.setItem('sisao-materias', JSON.stringify([...escolha])); } catch(e) {}
+    capa();
+  });
+  app.querySelector('#ir').onclick = () => {
+    if (!escolha.size) { app.querySelector('#err').textContent = 'Escolha pelo menos uma matéria'; return; }
+    const p = montar();
+    if (!p) { capa('Essa matéria ainda tem poucas perguntas. Junte com outra.'); return; }
+    st = { ...p, i: 0, ganho: 0, garantido: 0, pulos: 3, c50: false, turma: false, sel: -1, ops: null, fora: [], votos: null, resp: false, erros: [] };
+    rodada();
+  };
+}
+
+let st;
+function rodada(){
+  const q = st.perguntas[st.i];
+  st.ops = emb(q.o.map((x, k) => ({x, c: k === q.a})));
+  st.sel = -1; st.fora = []; st.votos = null; st.resp = false;
+  desenha();
+}
+function desenha(){
+  const q = st.perguntas[st.i];
+  const vale = PREMIOS[st.i];
+  app.innerHTML = `
+  <div class="topo">
+    <div><span class="mini">Pergunta ${st.i + 1} de 15 · ${esc(NOMES[q.mat])}</span><div class="vale">Vale ${reais(vale)}</div></div>
+    <div class="mini">Garantido: ${st.garantido ? reais(st.garantido) : 'nada ainda'}</div>
+  </div>
+  <div class="layout">
+    <section class="cartao">
+      ${q.tema ? `<span class="tema">${esc(q.tema)}</span>` : ''}
+      ${q.ctx ? `<p class="ctx">${esc(q.ctx)}</p>` : ''}
+      <p class="perg">${esc(q.p)}</p>
+      <div role="radiogroup" aria-label="Alternativas">
+      ${st.ops.map((o, k) => {
+        let cls = 'op';
+        if (st.fora.includes(k)) cls += ' fora';
+        if (st.resp && o.c) cls += ' certa';
+        if (st.resp && k === st.sel && !o.c) cls += ' errada';
+        const voto = st.votos ? `<div class="barra" style="width:${st.votos[k]}%"></div><span class="mini">${st.votos[k]}% da turma</span>` : '';
+        return `<button type="button" class="${cls}" role="radio" aria-checked="${k === st.sel}" data-k="${k}" ${st.resp || st.fora.includes(k) ? 'disabled' : ''}><span class="le">${'ABCDE'[k]}</span><span style="flex:1">${esc(o.x)}${voto}</span></button>`;
+      }).join('')}
+      </div>
+      ${st.resp ? '' : `
+      <div class="ajudas">
+        <button type="button" class="aj" id="a50" ${st.c50 ? 'disabled' : ''}>Tirar 2 erradas</button>
+        <button type="button" class="aj" id="aturma" ${st.turma ? 'disabled' : ''}>A turma opina</button>
+        <button type="button" class="aj" id="apulo" ${st.pulos && st.reserva.length ? '' : 'disabled'}>Pular (${st.pulos})</button>
+        <button type="button" class="aj parar" id="aparar">Parar e levar ${st.ganho ? reais(st.ganho) : 'nada'}</button>
+      </div>
+      <button type="button" class="conf" id="conf" ${st.sel < 0 ? 'disabled' : ''}>Resposta final</button>`}
+      ${st.resp ? `<div class="porque ${st.acertou ? '' : 'ruim'}"><b>${st.acertou ? 'Certa!' : 'Errou.'}</b> ${esc(q.w || '')}</div>
+      <button type="button" class="conf" id="seguir">${st.acertou ? (st.i === 14 ? 'Ver o prêmio' : 'Próxima pergunta') : 'Ver o resultado'}</button>` : ''}
+    </section>
+    <ol class="escada" aria-label="Escada de prêmios">
+      ${PREMIOS.map((p, k) => ({p, k})).reverse().map(({p, k}) => `<li class="${k === st.i ? 'agora' : k < st.i ? 'feito' : ''} ${SEGUROS.includes(k) ? 'seguro' : ''}"><span>${k + 1}</span><span>${reais(p)}${SEGUROS.includes(k) ? ' ★' : ''}</span></li>`).join('')}
+    </ol>
+  </div>`;
+  app.querySelectorAll('.op').forEach(b => b.onclick = () => { st.sel = +b.dataset.k; desenha(); });
+  const $ = id => app.querySelector('#' + id);
+  if ($('conf')) $('conf').onclick = responder;
+  if ($('seguir')) $('seguir').onclick = () => { if (st.acertou && st.i < 14) { st.i++; rodada(); } else fim(st.acertou ? 'milhao' : 'errou'); };
+  if ($('a50')) $('a50').onclick = () => { st.c50 = true; const erradas = st.ops.map((o, k) => o.c ? -1 : k).filter(k => k >= 0); st.fora = emb(erradas).slice(0, 2); if (st.fora.includes(st.sel)) st.sel = -1; desenha(); };
+  if ($('aturma')) $('aturma').onclick = () => { st.turma = true; st.votos = turma(); desenha(); };
+  if ($('apulo')) $('apulo').onclick = () => {
+    const nivel = Math.floor(st.i / 5);
+    const atual = st.perguntas[st.i];
+    const cand = st.reserva.filter(q => q.mat === atual.mat || escolha.size > 1);
+    const outra = emb(cand)[0];
+    if (!outra) return;
+    st.reserva = st.reserva.filter(q => q !== outra);
+    st.perguntas[st.i] = outra; st.pulos--; rodada();
+  };
+  if ($('aparar')) $('aparar').onclick = () => fim('parou');
+}
+function turma(){
+  const n = st.ops.length; const nivel = Math.floor(st.i / 5);
+  const acerta = Math.random() < [0.9, 0.75, 0.55][nivel];
+  const v = st.ops.map(() => 0);
+  const vivos = st.ops.map((o, k) => k).filter(k => !st.fora.includes(k));
+  const alvo = acerta ? st.ops.findIndex(o => o.c) : emb(vivos.filter(k => !st.ops[k].c))[0];
+  let resto = 100; const base = 40 + Math.floor(Math.random() * 30);
+  v[alvo] = base; resto -= base;
+  const outros = vivos.filter(k => k !== alvo);
+  outros.forEach((k, i) => { const p = i === outros.length - 1 ? resto : Math.floor(Math.random() * resto); v[k] = p; resto -= p; });
+  return v;
+}
+function responder(){
+  const q = st.perguntas[st.i];
+  st.resp = true; st.acertou = st.ops[st.sel].c;
+  if (st.acertou) {
+    st.ganho = PREMIOS[st.i];
+    if (SEGUROS.includes(st.i)) st.garantido = st.ganho;
+  } else st.erros.push(q);
+  desenha();
+}
+function fim(modo){
+  const premio = modo === 'parou' ? st.ganho : modo === 'milhao' ? 1000 : st.garantido;
+  const titulo = modo === 'milhao' ? 'Você ganhou R$ 1 milhão!' : modo === 'parou' ? 'Você parou na hora certa' : 'Fim de jogo';
+  try { const r = JSON.parse(localStorage.getItem('sisao-recorde') || '0'); if (premio > r) localStorage.setItem('sisao-recorde', JSON.stringify(premio)); } catch(e) {}
+  let recorde = 0; try { recorde = JSON.parse(localStorage.getItem('sisao-recorde') || '0'); } catch(e) {}
+  app.innerHTML = `
+  <section class="cartao fim">
+    <p class="mini">${[...escolha].map(m => NOMES[m]).join(' + ')}</p>
+    <h2>${titulo}</h2>
+    <p>Você leva <b>${premio ? reais(premio) : 'nada desta vez'}</b>. Acertou ${modo === 'milhao' ? 15 : st.i + (modo === 'parou' ? 0 : 0)} de 15.</p>
+    <p class="mini">Seu recorde: ${recorde ? reais(recorde) : '—'}</p>
+    <button type="button" class="big" id="denovo">Jogar de novo</button>
+    <button type="button" class="aj" id="trocar" style="margin-top:12px">Trocar a matéria</button>
+    ${st.erros.length ? `<div class="revisao"><p class="lbl">A que você errou</p>${st.erros.map(q => `<div class="item"><b>${esc(q.p)}</b>Resposta certa: ${esc(q.o[q.a])}<br><span class="mini">${esc(q.w || '')}</span></div>`).join('')}</div>` : ''}
+  </section>`;
+  app.querySelector('#denovo').onclick = () => { const p = montar(); st = { ...p, i: 0, ganho: 0, garantido: 0, pulos: 3, c50: false, turma: false, sel: -1, ops: null, fora: [], votos: null, resp: false, erros: [] }; rodada(); };
+  app.querySelector('#trocar').onclick = () => capa();
+}
+capa();
+})();
+</script>
+</body>
+</html>
