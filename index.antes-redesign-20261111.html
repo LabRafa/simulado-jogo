@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Simulado do simulado</title>
+<meta name="description" content="Treino no formato da prova da Estácio, uma questão por vez, com resposta na hora.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --papel:#fbfcfe; --mesa:#e6ebf3; --tinta:#17213a; --apagado:#5d6884; --linha:#cdd5e3;
+  --caneta:#2346a8; --caneta-claro:#e4eafb; --marca:#ffe45c; --correcao:#d7263d; --acerto:#1e9e5a; --acerto-claro:#e3f5eb; --erro-claro:#fde7ea;
+  --sm1:#2346a8; --par:#1e9e5a;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--mesa);color:var(--tinta);font-family:'Atkinson Hyperlegible',Arial,sans-serif;font-size:17px;line-height:1.5}
+h1,h2,h3,.disp{font-family:'Bricolage Grotesque',Arial,sans-serif;letter-spacing:-.01em}
+button{font:inherit;color:inherit}
+button:focus-visible{outline:3px solid var(--marca);outline-offset:2px}
+.palco{max-width:720px;margin:0 auto;padding:16px 16px 40px}
+/* topo */
+.topo{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:6px 0 16px}
+.marcaTopo{font-family:'Bricolage Grotesque';font-weight:800;font-size:20px}
+.marcaTopo small{display:block;font-family:'Atkinson Hyperlegible';font-weight:400;font-size:13px;color:var(--apagado)}
+.voltar{background:var(--papel);border:1.5px solid var(--linha);border-radius:10px;padding:8px 12px;cursor:pointer;min-height:44px}
+/* folha */
+.folha{background:var(--papel);border-radius:14px;box-shadow:0 1px 0 var(--linha),0 10px 30px -18px rgba(23,33,58,.35);padding:20px}
+.folha+.folha{margin-top:14px}
+/* home */
+.saud{font-size:15px;color:var(--apagado);margin:0 0 6px}
+.titulo{font-size:30px;font-weight:800;margin:0 0 14px;line-height:1.1}
+.materias{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:16px}
+.mat{position:relative;text-align:left;background:var(--papel);border:2px solid transparent;border-radius:14px;padding:14px;cursor:pointer;min-height:96px;box-shadow:0 1px 0 var(--linha)}
+.mat[aria-pressed="true"]{border-color:var(--caneta);background:var(--caneta-claro)}
+.mat:disabled{opacity:.5;cursor:default}
+.mat b{display:block;font-family:'Bricolage Grotesque';font-weight:800;font-size:19px}
+.mat span{font-size:13px;color:var(--apagado)}
+.melhor{display:flex;gap:4px;margin-top:8px}
+.bol{width:12px;height:12px;border-radius:50%;border:1.5px solid var(--caneta);background:transparent}
+.bol.c{background:var(--caneta)}
+.prova{display:inline-block;background:var(--marca);padding:3px 8px;border-radius:4px;font-size:14px;margin:0 0 14px}
+.acoes{display:grid;gap:10px}
+.acao{display:flex;align-items:center;gap:14px;text-align:left;width:100%;background:var(--papel);border:1.5px solid var(--linha);border-radius:14px;padding:14px 16px;cursor:pointer;min-height:64px}
+.acao:hover{border-color:var(--caneta)}
+.acao .ico{flex:0 0 44px;height:44px;border-radius:50%;display:grid;place-items:center;font-size:20px;background:var(--caneta-claro)}
+.acao b{display:block;font-size:17px}
+.acao small{display:block;color:var(--apagado);font-size:14px}
+.acao.principal{background:var(--caneta);border-color:var(--caneta);color:#fff}
+.acao.principal small{color:#d8e0fa}
+.acao.principal .ico{background:#fff;color:var(--caneta)}
+.acao:disabled{opacity:.55;cursor:default}
+.temas{display:flex;flex-wrap:wrap;gap:8px}
+.tema{background:var(--papel);border:1.5px solid var(--linha);border-radius:999px;padding:9px 14px;cursor:pointer;min-height:44px;font-size:15px}
+.tema:hover{border-color:var(--caneta)}
+.tema small{color:var(--apagado)}
+h2.sec{font-size:18px;margin:4px 0 10px}
+.legenda{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:13px;color:var(--apagado);margin-top:12px}
+.tag{display:inline-block;padding:1px 8px;border-radius:999px;font-size:12px;font-weight:700;color:#fff;margin-right:4px;vertical-align:1px}
+.tag.sm1{background:var(--sm1)}.tag.par{background:var(--par)}
+/* quiz */
+.barra{position:sticky;top:0;z-index:3;background:var(--mesa);padding:10px 0 8px;margin:-6px 0 8px}
+.barraTop{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px;font-size:14px;color:var(--apagado)}
+.placar{font-family:'Bricolage Grotesque';font-weight:800;font-size:18px;color:var(--tinta)}
+.gabarito{display:flex;gap:6px;flex-wrap:wrap}
+.gq{width:34px;height:34px;border-radius:50%;border:2px solid var(--linha);background:var(--papel);font-size:13px;font-weight:700;cursor:pointer;display:grid;place-items:center}
+.gq.atual{border-color:var(--caneta);box-shadow:0 0 0 3px var(--caneta-claro)}
+.gq.ok{background:var(--acerto);border-color:var(--acerto);color:#fff}
+.gq.no{background:var(--correcao);border-color:var(--correcao);color:#fff}
+.gq.pul{border-style:dashed}
+.qcab{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;border-bottom:1.5px dashed var(--linha);padding-bottom:10px;margin-bottom:12px}
+.qcab h3{margin:0;font-size:20px}
+.qcab span{font-size:13px;color:var(--apagado)}
+.enun p{margin:0 0 10px}
+.afs{list-style:none;padding:0;margin:4px 0 12px}
+.afs li{display:flex;gap:8px;margin:6px 0}
+.afs li b{min-width:28px}
+.porque{font-weight:700;letter-spacing:.06em;margin:6px 0 6px 36px}
+.ops{display:grid;gap:8px;margin-top:6px}
+.op{display:flex;align-items:flex-start;gap:12px;width:100%;text-align:left;background:var(--papel);border:2px solid var(--linha);border-radius:12px;padding:12px 14px;cursor:pointer;min-height:54px;position:relative}
+.op:hover:not(:disabled){border-color:var(--caneta)}
+.op .le{flex:0 0 30px;height:30px;border-radius:50%;border:2px solid var(--tinta);display:grid;place-items:center;font-weight:700;font-size:14px}
+.op[aria-checked="true"]{border-color:var(--caneta);background:linear-gradient(transparent 12%,var(--marca) 12%,var(--marca) 88%,transparent 88%) no-repeat 0 0/0 100%;animation:marcar .35s ease-out forwards}
+.op[aria-checked="true"] .le{background:var(--caneta);border-color:var(--caneta);color:#fff}
+@keyframes marcar{to{background-size:100% 100%}}
+.op.riscada{opacity:.45;text-decoration:line-through;text-decoration-color:var(--correcao);text-decoration-thickness:2px}
+.op.certa{border-color:var(--acerto);background:var(--acerto-claro)}
+.op.certa .le{background:var(--acerto);border-color:var(--acerto);color:#fff}
+.op.errada{border-color:var(--correcao);background:var(--erro-claro)}
+.op.errada .le{background:var(--correcao);border-color:var(--correcao);color:#fff}
+.op:disabled{cursor:default}
+.ferramentas{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.fer{background:var(--papel);border:1.5px solid var(--linha);border-radius:10px;padding:9px 12px;cursor:pointer;min-height:44px;font-size:15px}
+.fer:disabled{opacity:.5;cursor:default}
+.fer:hover:not(:disabled){border-color:var(--caneta)}
+.confirmar{width:100%;margin-top:14px;background:var(--caneta);color:#fff;border:0;border-radius:12px;padding:15px;font-size:18px;font-weight:700;cursor:pointer;min-height:56px}
+.confirmar:disabled{background:#a9b5d6;cursor:default}
+.retorno{margin-top:14px;border-radius:12px;padding:14px;border-left:6px solid}
+.retorno.ok{background:var(--acerto-claro);border-color:var(--acerto)}
+.retorno.no{background:var(--erro-claro);border-color:var(--correcao)}
+.retorno h4{margin:0 0 4px;font-family:'Bricolage Grotesque';font-size:19px}
+.retorno.ok h4{color:var(--acerto)}.retorno.no h4{color:var(--correcao)}
+.retorno p{margin:0 0 6px}
+.retorno .fonte{font-size:13px;color:var(--apagado)}
+.dicaBox{margin-top:12px;background:#fff8cc;border-radius:10px;padding:12px;font-size:15px}
+.dicaBox ul{margin:6px 0 0;padding-left:18px}
+/* resultado */
+.nota{font-family:'Bricolage Grotesque';font-weight:800;font-size:72px;line-height:1;margin:6px 0;color:var(--caneta)}
+.estrelas{font-size:30px;letter-spacing:4px;margin-bottom:6px}
+.resumoQ{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--linha)}
+.resumoQ:first-child{border-top:0}
+.resumoQ .gq{flex:0 0 34px;cursor:default}
+.resumoQ small{color:var(--apagado)}
+.rev h3{font-size:17px;margin:16px 0 6px}.rev ul{margin:0;padding-left:20px}.rev li{margin:4px 0}
+.desemp{display:grid;gap:8px;margin:0 0 12px}
+.dl{display:grid;grid-template-columns:minmax(90px,150px) 1fr auto;gap:10px;align-items:center;font-size:15px}
+.dl .trilho{height:12px;border-radius:999px;background:var(--mesa);overflow:hidden}
+.dl .enche{height:100%;border-radius:999px}
+.dl small{color:var(--apagado);white-space:nowrap}
+.vazio{color:var(--apagado);font-size:15px;margin:0}
+footer{text-align:center;font-size:13px;color:var(--apagado);padding:20px 16px}
+@media (max-width:520px){.titulo{font-size:26px}.nota{font-size:60px}.gq{width:30px;height:30px}}
+@media (prefers-reduced-motion:reduce){.op[aria-checked="true"]{animation:none;background-size:100% 100%}}
+</style>
+</head>
+<body>
+<div class="palco" id="app"></div>
+<footer>Feito pela Mônica Fontes, IA da turma de Odontologia, com o material do professor. É treino, não é o simulado oficial.</footer>
+<script src="bancos.js"></script>
+<script src="banco-farmaco.js"></script>
+<script src="banco-imagino.js"></script>
+<script>
+const $ = s => document.querySelector(s);
+const app = $('#app');
+const L = ['A','B','C','D','E'], ROM = ['I','II','III','IV','V'];
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const ler = (k,p) => { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : p; } catch(e) { return p; } };
+const grava = (k,v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch(e) {} };
+const mistura = a => { const b=a.slice(); for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];} return b; };
+const nota1 = n => (n/10).toFixed(1).replace('.',',');
+
+let MAT = ler('jogo-mat','bases'); if (!BANCOS[MAT]) MAT = 'bases';
+let partida = null; /* {modo, itens:[{q,ordem,certa,resp,conf,riscadas,pulou}], i} */
+
+const banco = () => BANCOS[MAT];
+const modos = () => banco().modos || [];
+const errosDe = () => ler('jogo-erros-'+MAT, []);
+function poolDe(m){
+  const b = banco();
+  if (m.erros) { const e = errosDe(); return b.q.filter(q => e.includes(q.id)); }
+  if (m.sm1todo) return b.q.filter(q => q.sm1 && (!m.prefixo || q.id.startsWith(m.prefixo))).sort((x,y)=>x.id.localeCompare(y.id,'pt',{numeric:true}));
+  if (m.af) return b.q.filter(q => q.af && q.af.length);
+  return m.temas ? b.q.filter(q => m.temas.includes(q.tema)) : b.q.slice();
+}
+function sorteia(m){
+  const pool = poolDe(m);
+  if (m.sm1todo) return pool.map(q => ({q, ordem:[0,1,2,3,4]}));
+  let esc10;
+  if (m.erros) esc10 = mistura(pool).slice(0,10);
+  else {
+    const sm1 = pool.filter(q => q.sm1);
+    const n = Math.min(sm1.length, Math.floor(Math.random()*3)); /* 0, 1 ou 2 do SM1, nunca mais */
+    const pegas = mistura(sm1).slice(0,n);
+    esc10 = mistura(pegas.concat(mistura(pool.filter(q => !q.sm1)).slice(0, 10-n)));
+  }
+  return esc10.map(q => ({ q, ordem: (q.fixa || q.af) ? [0,1,2,3,4] : mistura([0,1,2,3,4]) }));
+}
+
+/* ---------- DESEMPENHO (fica guardado só neste aparelho) ---------- */
+const MIN_TENT = 3; /* tema só entra no ranking com pelo menos 3 questões feitas */
+function desempenho(){
+  const st = ler('jogo-stats-'+MAT, {});
+  return Object.entries(st).map(([tema,v]) => ({tema, t:v.t, a:v.a, pct: v.t ? v.a/v.t : 0})).sort((x,y) => x.pct - y.pct || y.t - x.t);
+}
+const corPct = p => p >= .8 ? 'var(--acerto)' : p >= .5 ? '#e0a100' : 'var(--correcao)';
+function desempenhoHtml(){
+  const d = desempenho();
+  if (!d.length) return `<p class="vazio">Faça um simulado e aqui aparece a sua porcentagem de acerto em cada tema, do que você mais erra pro que mais acerta.</p>`;
+  const fracos = d.filter(x => x.t >= MIN_TENT && x.pct < .7);
+  return `<div class="desemp">${d.map(x => `<div class="dl"><span>${esc(x.tema)}</span><div class="trilho" aria-hidden="true"><div class="enche" style="width:${Math.max(4,Math.round(x.pct*100))}%;background:${corPct(x.pct)}"></div></div><small>${Math.round(x.pct*100)}%, ${x.a} de ${x.t}</small></div>`).join('')}</div>
+  ${fracos.length ? `<button class="acao principal" id="fracos"><span class="ico" aria-hidden="true">🎯</span><span><b>Treinar meus pontos fracos</b><small>10 questões de ${fracos.slice(0,3).map(x=>x.tema).join(', ')}</small></span></button>` : `<p class="vazio">${d.some(x=>x.t>=MIN_TENT) ? 'Nenhum tema abaixo de 70 % ainda. Continue assim.' : 'Depois de 3 questões de um tema ele entra na conta dos pontos fracos.'}</p>`}
+  <p class="vazio" style="margin-top:10px;font-size:13px">Seus dados ficam guardados só neste celular.</p>`;
+}
+function modoFracos(){
+  const temas = desempenho().filter(x => x.t >= MIN_TENT && x.pct < .7).slice(0,3).map(x => x.tema);
+  return { id:'fracos', nome:'Pontos fracos', temas };
+}
+
+/* ---------- INÍCIO ---------- */
+function inicio(){
+  partida = null;
+  const b = banco(), ms = modos();
+  const completo = ms.find(m => m.id === 'completo') || ms[0];
+  const sm1 = ms.find(m => m.sm1todo), erros = ms.find(m => m.erros);
+  const temas = ms.filter(m => m !== completo && m !== sm1 && m !== erros && poolDe(m).length >= 3);
+  const nErr = erros ? poolDe(erros).length : 0;
+  app.innerHTML = `
+  <div class="topo"><div class="marcaTopo">Simulado do simulado<small>Odontologia, 2º período</small></div></div>
+  <p class="saud">Escolha a matéria</p>
+  <div class="materias">${MATERIAS.map(m => { const melhor = ler('jogo-melhor-'+m.id, null);
+    return `<button class="mat" data-mat="${m.id}" aria-pressed="${m.id===MAT}" ${m.pronto?'':'disabled'}><b>${esc(m.nome)}</b><span>${m.pronto ? (melhor!==null ? 'Melhor nota '+nota1(melhor) : 'Ainda não jogou') : esc(m.nota)}</span>
+    ${m.pronto ? `<div class="melhor" aria-hidden="true">${Array.from({length:10},(_,i)=>`<i class="bol${melhor!==null && i<melhor?' c':''}"></i>`).join('')}</div>` : ''}</button>`; }).join('')}</div>
+  <section class="folha">
+    <h1 class="titulo">${esc(b.curta || b.materia)}</h1>
+    ${b.proxima ? `<p class="prova">${esc(b.proxima)}</p>` : ''}
+    <div class="acoes">
+      <button class="acao principal" data-go="${completo.id}"><span class="ico" aria-hidden="true">▶</span><span><b>Começar simulado</b><small>10 questões, uma por vez, com a resposta na hora</small></span></button>
+      ${sm1 && poolDe(sm1).length ? `<button class="acao" data-go="${sm1.id}"><span class="ico" aria-hidden="true">📄</span><span><b>Refazer a prova do SM1</b><small>As ${poolDe(sm1).length} questões que caíram, na ordem da prova</small></span></button>` : ''}
+      ${erros ? `<button class="acao" data-go="${erros.id}" ${nErr?'':'disabled'}><span class="ico" aria-hidden="true">↺</span><span><b>Refazer as que errei</b><small>${nErr ? nErr+(nErr===1?' questão guardada':' questões guardadas') : 'Quando você errar, a questão aparece aqui'}</small></span></button>` : ''}
+      <button class="acao" data-rev="1"><span class="ico" aria-hidden="true">📚</span><span><b>Ler o resumo</b><small>O que mais cai, em tópicos curtos</small></span></button>
+      <a class="acao" href="https://labrafa.github.io/dentolingu/#milhao" style="text-decoration:none;color:inherit"><span class="ico" aria-hidden="true">🏆</span><span><b>Sisão do simulado</b><small>Show do Sisão personalizado: escolha a matéria e jogue valendo prêmio</small></span></a>
+    </div>
+    <div class="legenda"><span><i class="tag sm1">SM1</i>caiu igualzinho no SM1</span><span><i class="tag par">parecida</i>parecida com uma do SM1</span></div>
+  </section>
+  <section class="folha"><h2 class="sec">Meu desempenho</h2>${desempenhoHtml()}</section>
+  ${temas.length ? `<section class="folha"><h2 class="sec">Treinar um assunto</h2><div class="temas">${temas.map(m => `<button class="tema" data-go="${m.id}">${esc(m.nome)} <small>${poolDe(m).length}</small></button>`).join('')}</div></section>` : ''}`;
+  app.querySelectorAll('[data-mat]').forEach(el => el.onclick = () => { MAT = el.dataset.mat; grava('jogo-mat', MAT); inicio(); });
+  app.querySelectorAll('[data-go]').forEach(el => el.onclick = () => comeca(ms.find(m => m.id === el.dataset.go)));
+  app.querySelectorAll('[data-rev]').forEach(el => el.onclick = () => resumo(null));
+  if ($('#fracos')) $('#fracos').onclick = () => comeca(modoFracos());
+  window.scrollTo(0,0);
+}
+
+/* ---------- PROVA ---------- */
+function comeca(m){
+  const itens = sorteia(m).map(it => ({...it, certa: it.ordem.indexOf(it.q.a), resp:null, conf:false, riscadas:[], pulou:false, dica:false}));
+  if (!itens.length) return;
+  partida = { modo:m, itens, i:0 };
+  questao();
+}
+const acertos = () => partida.itens.filter(it => it.conf && it.resp === it.certa).length;
+function gabaritoHtml(){
+  return `<div class="gabarito" role="list" aria-label="Questões">${partida.itens.map((it,k) => {
+    const c = it.conf ? (it.resp===it.certa?' ok':' no') : (it.pulou?' pul':'');
+    return `<button class="gq${c}${k===partida.i?' atual':''}" data-ir="${k}" aria-label="Questão ${k+1}${it.conf?(it.resp===it.certa?', certa':', errada'):''}">${k+1}</button>`; }).join('')}</div>`;
+}
+function enunciadoHtml(q){
+  if (q.af && q.af.length) return `<div class="enun"><p>${esc(q.ctx)}</p><ul class="afs">${q.af.map((t,k)=>(q.ar&&k===1?'<li class="porque">PORQUE</li>':'')+`<li><b>${ROM[k]}.</b><span>${esc(t)}</span></li>`).join('')}</ul>${q.p?`<p>${esc(q.p)}</p>`:''}</div>`;
+  return `<div class="enun"><p>${esc(q.ctx)}${q.p?' '+esc(q.p):''}</p></div>`;
+}
+function questao(){
+  const P = partida, it = P.itens[P.i], q = it.q, total = P.itens.length;
+  const respondidas = P.itens.filter(x => x.conf).length;
+  const ultimo = P.i === total-1;
+  const proxNao = P.itens.findIndex((x,k) => !x.conf && k !== P.i);
+  app.innerHTML = `
+  <div class="barra">
+    <div class="barraTop"><button class="voltar" id="sair">← Início</button><span>${esc(banco().curta||'')}, ${respondidas} de ${total} respondidas</span><span class="placar" aria-live="polite">${nota1(acertos())}</span></div>
+    ${gabaritoHtml()}
+  </div>
+  <section class="folha">
+    <div class="qcab"><h3>Questão ${P.i+1}${q.sm1?' <i class="tag sm1">SM1</i>':q.sm1par?' <i class="tag par">parecida</i>':''}</h3><span>${esc(q.tema)}, vale 0,1</span></div>
+    ${enunciadoHtml(q)}
+    <div class="ops" role="radiogroup" aria-label="Alternativas">${it.ordem.map((o,k) => {
+      let cls = '';
+      if (it.conf) { if (k===it.certa) cls=' certa'; else if (k===it.resp) cls=' errada'; }
+      else if (it.riscadas.includes(k)) cls=' riscada';
+      return `<button class="op${cls}" role="radio" data-op="${k}" aria-checked="${it.resp===k}" ${it.conf?'disabled':''}><span class="le">${L[k]}</span><span>${esc(q.o[o])}</span></button>`; }).join('')}</div>
+    ${it.conf ? `
+      <div class="retorno ${it.resp===it.certa?'ok':'no'}" role="status">
+        <h4>${it.resp===it.certa ? 'Acertou! +0,1' : 'Não foi dessa vez. A certa é a '+L[it.certa]}</h4>
+        <p>${esc(q.w)}</p><p class="fonte">${q.net?'* questão de pesquisa, ':''}${esc(q.f||'')}</p>
+      </div>
+      <button class="confirmar" id="prox">${respondidas===total ? 'Ver minha nota' : 'Próxima questão'}</button>` : `
+      <div class="ferramentas">
+        <button class="fer" id="riscar" ${it.riscadas.length?'disabled':''}>✂ Riscar 2 erradas</button>
+        <button class="fer" id="dica">💡 Ver o resumo do tema</button>
+        <button class="fer" id="pular">Pular por agora</button>
+      </div>
+      ${it.dica ? dicaHtml(q) : ''}
+      <button class="confirmar" id="conf" ${it.resp===null?'disabled':''}>${it.resp===null ? 'Escolha uma alternativa' : 'Confirmar resposta '+L[it.resp]}</button>`}
+  </section>`;
+  $('#sair').onclick = () => { if (!respondidas || confirm('Sair do simulado? O que você respondeu não vai contar.')) inicio(); };
+  app.querySelectorAll('[data-ir]').forEach(el => el.onclick = () => { P.i = +el.dataset.ir; questao(); });
+  app.querySelectorAll('[data-op]').forEach(el => el.onclick = () => { it.resp = +el.dataset.op; it.riscadas = it.riscadas.filter(x => x !== it.resp); questao(); });
+  if ($('#riscar')) $('#riscar').onclick = () => { const erradas = mistura([0,1,2,3,4].filter(k => k!==it.certa && k!==it.resp)).slice(0,2); it.riscadas = erradas; questao(); };
+  if ($('#dica')) $('#dica').onclick = () => { it.dica = !it.dica; questao(); };
+  if ($('#pular')) $('#pular').onclick = () => { it.pulou = true; P.i = proximaLivre(P.i); questao(); };
+  if ($('#conf')) $('#conf').onclick = confirma;
+  if ($('#prox')) $('#prox').onclick = () => { if (P.itens.every(x => x.conf)) resultado(); else { P.i = proximaLivre(P.i); questao(); } };
+  window.scrollTo(0,0);
+}
+function proximaLivre(i){ const t = partida.itens.length; for (let s=1;s<=t;s++){ const k=(i+s)%t; if(!partida.itens[k].conf) return k; } return i; }
+function dicaHtml(q){
+  const r = (banco().revisao||[]); const tema = (q.tema||'').toLowerCase();
+  let itens = []; r.forEach(sec => sec.i.forEach(x => { if (x.toLowerCase().includes(tema.split(' ')[0])) itens.push(x); }));
+  if (!itens.length) itens = (r[0] ? r[0].i.slice(0,3) : []);
+  return `<div class="dicaBox"><b>Resumo: ${esc(q.tema)}</b><ul>${itens.slice(0,4).map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`;
+}
+function confirma(){
+  const it = partida.itens[partida.i];
+  if (it.resp === null) return;
+  it.conf = true;
+  const e = new Set(errosDe());
+  if (it.resp === it.certa) e.delete(it.q.id); else e.add(it.q.id);
+  grava('jogo-erros-'+MAT, [...e]);
+  const st = ler('jogo-stats-'+MAT, {}); const t = it.q.tema || 'Geral';
+  st[t] = st[t] || {t:0, a:0}; st[t].t++; if (it.resp === it.certa) st[t].a++;
+  grava('jogo-stats-'+MAT, st);
+  questao();
+}
+document.addEventListener('keydown', ev => {
+  if (!partida || ev.target.tagName === 'INPUT') return;
+  const it = partida.itens[partida.i]; const k = 'abcde'.indexOf(ev.key.toLowerCase());
+  if (k >= 0 && !it.conf) { it.resp = k; questao(); }
+  else if (ev.key === 'Enter') { const b = $('#conf') || $('#prox'); if (b && !b.disabled) b.click(); }
+});
+
+/* ---------- RESULTADO ---------- */
+function resultado(){
+  const P = partida, total = P.itens.length, c = acertos();
+  const pct = c/total, est = pct>=0.8?3:pct>=0.5?2:pct>0?1:0;
+  if (!P.modo.sm1todo && !P.modo.erros && total===10) { const m = ler('jogo-melhor-'+MAT, null); if (m===null || c>m) grava('jogo-melhor-'+MAT, c); }
+  const msg = est===3 ? 'Mandou muito. Tá pronto pra prova.' : est===2 ? 'Bom caminho. Refaz as que errou que fixa.' : 'Normal no começo. Lê o resumo e tenta de novo.';
+  const nErr = P.itens.filter(x => x.resp !== x.certa).length;
+  app.innerHTML = `
+  <div class="topo"><div class="marcaTopo">Resultado<small>${esc(banco().curta||'')}, ${esc(P.modo.nome)}</small></div></div>
+  <section class="folha" style="text-align:center">
+    <div class="estrelas" aria-label="${est} de 3 estrelas">${'★'.repeat(est)}${'☆'.repeat(3-est)}</div>
+    <div class="nota">${(c/10).toFixed(1).replace('.',',')}</div>
+    <p style="margin:0 0 4px">${c} de ${total} certas</p>
+    <p style="color:var(--apagado);margin:0 0 14px">${msg}</p>
+    <div class="acoes">
+      ${nErr ? `<button class="acao principal" id="refaz"><span class="ico" aria-hidden="true">↺</span><span><b>Refazer as ${nErr} que errei</b><small>Agora, antes de esquecer</small></span></button>` : ''}
+      <button class="acao ${nErr?'':'principal'}" id="novo"><span class="ico" aria-hidden="true">▶</span><span><b>Novo simulado</b><small>Outras 10 questões sorteadas</small></span></button>
+      <button class="acao" id="ini"><span class="ico" aria-hidden="true">⌂</span><span><b>Voltar ao início</b><small>Trocar de matéria ou de assunto</small></span></button>
+    </div>
+  </section>
+  <section class="folha"><h2 class="sec">Questão por questão</h2>${P.itens.map((it,k) => `<div class="resumoQ"><span class="gq ${it.resp===it.certa?'ok':'no'}">${k+1}</span><div><b>${it.resp===it.certa?'Certa':'Errada'}</b>, <small>${esc(it.q.tema)}</small><br><small>Resposta certa: ${L[it.certa]}. ${esc(it.q.w)}</small></div></div>`).join('')}</section>`;
+  if ($('#refaz')) $('#refaz').onclick = () => { const erradas = P.itens.filter(x => x.resp !== x.certa).map(x => ({...x, resp:null, conf:false, riscadas:[], pulou:false, dica:false})); partida = { modo:{nome:'Refazer as que errei', erros:true}, itens:erradas, i:0 }; questao(); };
+  $('#novo').onclick = () => comeca(P.modo.erros || P.modo.sm1todo ? (modos().find(m=>m.id==='completo')) : P.modo);
+  $('#ini').onclick = inicio;
+  window.scrollTo(0,0);
+}
+
+/* ---------- RESUMO ---------- */
+function resumo(){
+  const b = banco();
+  app.innerHTML = `<div class="topo"><div class="marcaTopo">Resumo<small>${esc(b.materia)}</small></div><button class="voltar" id="vol">← Início</button></div>
+  <section class="folha rev">${(b.revisao||[]).map(r => `<h3>${esc(r.t)}</h3><ul>${r.i.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`).join('')}
+  <button class="confirmar" id="go">Começar simulado</button></section>`;
+  $('#vol').onclick = inicio;
+  $('#go').onclick = () => comeca(modos().find(m=>m.id==='completo'));
+  window.scrollTo(0,0);
+}
+inicio();
+</script>
+</body>
+</html>
