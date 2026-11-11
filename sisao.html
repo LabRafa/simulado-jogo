@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Show do Sisão</title>
+<title>Sisão do simulado</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -112,8 +112,8 @@ function capa(msg){
   const total = m => (B[m] && B[m].q || []).length;
   app.innerHTML = `
   <a class="volta" href="./">← Voltar ao simulado</a>
-  <h1 class="logo">Show do Sisão</h1>
-  <p class="sub">15 perguntas, da mais fácil à mais difícil. Quanto mais longe, maior o prêmio.</p>
+  <h1 class="logo">Sisão do simulado</h1>
+  <p class="sub">Versão personalizada do Show do Sisão, só com as questões do simulado. 15 perguntas, da mais fácil à mais difícil.</p>
   <p class="lbl">Escolha a matéria (pode juntar mais de uma)</p>
   <div class="chips">
     ${Object.keys(NOMES).filter(m => B[m]).map(m => `<button type="button" class="chip" data-m="${m}" aria-pressed="${escolha.has(m)}">${NOMES[m]}<small>${total(m)}</small></button>`).join('')}
