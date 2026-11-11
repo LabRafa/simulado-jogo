@@ -10,6 +10,10 @@
   const F_MAX = 'Slides do prof. Gustavo Holderbaum, Técnicas Anestésicas em Maxila';
   const F_MAN = 'Slides do prof. Gustavo Holderbaum, Técnicas Anestésicas na Mandíbula (22/10/2026)';
   const F_MAPA = 'Mapa das técnicas anestésicas (material adicional de 23/10/2026)';
+  const F_MAL = 'Malamed, Manual de Anestesia Local (conteúdo padrão de livro-texto)';
+  const F_AND = 'Andrade, Terapêutica Medicamentosa em Odontologia, cap. 5 (livro da disciplina): tabela de doses máximas';
+  const F_ED14 = 'Estudo dirigido de anatomia, caps. 13 e 14 (inervação e anestesia)';
+  const F_WMAX = 'Wikipédia, "Nervo maxilar" (pt.wikipedia.org/wiki/Nervo_maxilar)';
   const AR = [
     'As asserções I e II são proposições verdadeiras, e a II é uma justificativa correta da I.',
     'As asserções I e II são proposições verdadeiras, mas a II não é uma justificativa correta da I.',
@@ -37,7 +41,9 @@
       tema('t-sna', 'Sistema nervoso autônomo', 'Simpático, parassimpático e a saliva.', ['Sistema nervoso autônomo']),
       tema('t-maxila', 'Técnicas na maxila', 'Supraperiosteal, PSA, ASM, ASA, infraorbitário, nasopalatino, palatino maior.', ['Técnicas na maxila']),
       tema('t-mand', 'Técnicas na mandíbula', 'Alveolar inferior, lingual, bucal, Gow-Gates, Vazirani-Akinosi.', ['Técnicas na mandíbula']),
-      tema('t-esp', 'Técnicas especiais e complicações', 'Tópica, intraligamentar, intraóssea, trismo, hematoma.', ['Técnicas especiais', 'Complicações']),
+      tema('t-esp', 'Técnicas especiais e complicações', 'Tópica, intraligamentar, intraóssea, trismo, hematoma, paralisia facial, parestesia.', ['Técnicas especiais', 'Complicações']),
+      tema('t-dose', 'Doses e tubetes', 'mg por tubete, dose máxima por peso, epinefrina no cardiopata.', ['Dose máxima']),
+      tema('t-anat', 'Anatomia aplicada à anestesia', 'Trigêmeo, forames, espaço pterigomandibular, nervos alveolares.', ['Anatomia aplicada']),
       { id: 'afirm', nome: 'Afirmativas I, II, III', sub: 'Questões no estilo "está correto o que se afirma em" e de asserção e razão.', temas: null, af: true },
       { id: 'erros', nome: 'Revisar meus erros', sub: 'Só as questões que você errou ou deixou em branco aqui.', temas: null, erros: true }
     ],
@@ -73,7 +79,18 @@
       { t: 'Técnicas especiais e complicações', i: [
         'Tópica: sem punção, só superfície, ação curta. Intrapapilar 0,2 mL. Intraligamentar 0,2 mL por raiz (unitária). Intrasseptal 0,2 a 0,4 mL.',
         'Intraóssea: perfuração prévia, latência imediata, risco de taquicardia. Intrapulpar: polpa exposta, dói, raramente indicada.',
-        'Aspirar sempre. Complicações: falha, parestesia, hematoma, trismo (pterigóideo), paralisia facial transitória (nervo facial).'] }
+        'Aspirar sempre. Complicações: falha, parestesia, hematoma, trismo (pterigóideo), paralisia facial transitória (nervo facial).'] },
+      { t: 'Doses e sais', i: [
+        'Tubete = 1,8 mL. % x 10 = mg/mL. Lidocaína 2% = 36 mg/tubete; 3% = 54 mg; articaína 4% = 72 mg.',
+        'Dose máxima (Andrade): lidocaína 4,4 mg/kg (teto 300 mg); articaína 7 mg/kg (teto 500 mg). Peso x dose / mg por tubete, arredondando para baixo.',
+        'Epinefrina 1:100.000 = 0,01 mg/mL = 0,018 mg/tubete. Cardiopata: até 0,04 mg (2 tubetes). Saudável: até 0,2 mg.',
+        'PA a partir de 180 x 110 = adiar o eletivo. Prilocaína: metemoglobinemia (orto-toluidina). Felipressina: análogo da vasopressina, pouca hemostasia, evitar em gestante.',
+        'Inflamação = pH ácido = mais forma ionizada = anestésico não entra no nervo. Alvo: canal de sódio.'] },
+      { t: 'Anatomia aplicada', i: [
+        'V1 fissura orbital superior; V2 forame redondo (só sensitivo); V3 forame oval (misto, mastigação).',
+        'Nasopalatino: forame incisivo. Palatino maior: forame palatino maior. Mentual: região dos pré-molares inferiores.',
+        'Espaço pterigomandibular: entre o ramo (lateral) e o pterigóideo medial (medial).',
+        'PSA sai do maxilar antes do canal infraorbitário; ASM e ASA saem do infraorbitário.'] }
     ],
     q: [
       /* ===== SM1 (prova 0085173), na ordem da prova ===== */
@@ -208,7 +225,75 @@
       { id: 'f30', tema: 'Complicações', ctx: 'Os slides de técnicas na mandíbula listam cuidados gerais e complicações possíveis da anestesia. Considerando esse material, analise as afirmativas.',
         af: ['A aspiração é obrigatória em todas as técnicas.', 'A paralisia facial transitória pode ocorrer por injeção inadvertida no nervo facial.', 'O hematoma é uma complicação decorrente de lesão vascular.'],
         p: 'Está correto o que se afirma em', o: AF, a: 4, fixa: true,
-        w: 'As três são verdadeiras. Outras complicações dos slides: falha anestésica, parestesia transitória (lingual ou alveolar inferior) e trismo (músculo pterigóideo).', f: F_MAN, net: false }
+        w: 'As três são verdadeiras. Outras complicações dos slides: falha anestésica, parestesia transitória (lingual ou alveolar inferior) e trismo (músculo pterigóideo).', f: F_MAN, net: false },
+
+      /* ===== +20 questões para o SM2 (11/11/2026): doses, sais, vasoconstritores, pH, SNA, anatomia aplicada e complicações ===== */
+      { id: 'f31', tema: 'Dose máxima', ctx: 'O tubete odontológico tem 1,8 mL de solução. Uma solução a 2% tem 2 g do sal em 100 mL, ou seja, 20 mg por mL.', p: 'Quantos miligramas de lidocaína há em um tubete de lidocaína a 2%?',
+        o: ['18 mg.', '20 mg.', '36 mg.', '54 mg.', '72 mg.'], a: 2,
+        w: '20 mg/mL x 1,8 mL = 36 mg por tubete. O erro mais comum é marcar 20 mg, que é o valor de 1 mL, e não do tubete inteiro. 54 mg é o tubete de uma solução a 3% (mepivacaína ou prilocaína) e 72 mg o da articaína a 4%. Regra rápida: concentração em % x 10 = mg/mL; x 1,8 = mg por tubete.', f: F_MAL, net: true },
+      { id: 'f32', tema: 'Dose máxima', ctx: 'Paciente adulto saudável, 60 kg, vai receber lidocaína 2% com epinefrina 1:100.000. Considere a dose máxima de 4,4 mg/kg (tabela de Andrade, livro da disciplina) e 36 mg de lidocaína por tubete.', p: 'Qual é o número máximo de tubetes para esse paciente na sessão?',
+        o: ['3 tubetes.', '5 tubetes.', '7 tubetes.', '10 tubetes.', '13 tubetes.'], a: 2,
+        w: '60 kg x 4,4 mg/kg = 264 mg. 264 / 36 = 7,3, então no máximo 7 tubetes (arredonda sempre para baixo). Quem marca 13 esqueceu de multiplicar pelo peso ou usou mg/mL no lugar de mg/tubete. Além da conta por peso existe o teto absoluto da lidocaína, 300 mg (cerca de 8 tubetes), que nenhum paciente ultrapassa.', f: F_AND, net: true },
+      { id: 'f33', tema: 'Dose máxima', ctx: 'Uma criança de 20 kg vai receber articaína 4% com epinefrina 1:100.000. Considere a dose máxima de 7 mg/kg e 72 mg de articaína por tubete (40 mg/mL x 1,8 mL).', p: 'Qual é a quantidade máxima de anestésico para essa criança?',
+        o: ['Menos de 2 tubetes (cerca de 1,9 tubete).', '3 tubetes.', '4 tubetes.', '5 tubetes.', '7 tubetes.'], a: 0,
+        w: '20 kg x 7 mg/kg = 140 mg. 140 / 72 = 1,9 tubete: menos de 2 tubetes. Os 7 tubetes valem para um adulto (o teto da articaína é 500 mg, cerca de 6,9 tubetes). Na criança o que manda é o peso, e é nela que a superdosagem mais acontece.', f: F_AND, net: true },
+      { id: 'f34', tema: 'Anestésicos locais', ctx: 'A articaína é muito usada na odontologia, em concentração de 4%, com epinefrina 1:100.000 ou 1:200.000. Considerando o texto, avalie as asserções a seguir e a relação proposta entre elas.',
+        af: ['A articaína tem meia-vida plasmática curta, de cerca de 20 a 30 minutos, menor que a da lidocaína.', 'A articaína pertence ao grupo dos anestésicos do tipo éster.'],
+        ar: true, p: 'A respeito dessas asserções, assinale a opção correta.', o: AR, a: 2, fixa: true,
+        w: 'I é verdadeira. II é falsa: a articaína é uma AMIDA (por isso é classificada junto com lidocaína e mepivacaína), mas tem um anel tiofeno e um grupo éster extra na molécula. Esse grupo éster é quebrado no plasma pelas esterases plasmáticas, e é isso que explica a meia-vida curta. A pegadinha é concluir que ela "é éster" só porque é hidrolisada no plasma.', f: F_MAL, net: true },
+      { id: 'f35', tema: 'Anestésicos locais', ctx: 'Algumas horas depois de receber uma dose alta de prilocaína, o paciente apresenta lábios e unhas com cor acinzentada a azulada (cianose), sem obstrução das vias aéreas.', p: 'Qual a complicação mais provável e sua causa?',
+        o: ['Reação alérgica ao grupo éster da prilocaína.', 'Hipertensão arterial causada pela felipressina.', 'Hipoglicemia causada pela epinefrina.', 'Metemoglobinemia, porque o metabólito orto-toluidina oxida o ferro da hemoglobina, que deixa de transportar oxigênio.', 'Paralisia facial transitória.'], a: 3,
+        w: 'A prilocaína é metabolizada em orto-toluidina, que transforma hemoglobina em metemoglobina (ferro oxidado, que não carrega oxigênio): daí a cianose sem problema respiratório. O risco cresce com dose alta e em quem já tem metemoglobinemia, anemia ou problema respiratório. Tratamento: azul de metileno intravenoso. Não é alergia a éster: a prilocaína é uma amida.', f: F_MAL, net: true },
+      { id: 'f36', tema: 'Vasoconstritores', ctx: 'No Brasil, a prilocaína 3% é vendida associada à felipressina. Sobre esse vasoconstritor, analise as afirmativas.',
+        af: ['A felipressina é um análogo sintético da vasopressina e não age em receptores adrenérgicos.', 'A felipressina é o vasoconstritor de escolha quando se quer a melhor hemostasia no campo cirúrgico.', 'A felipressina é a responsável pela metemoglobinemia associada a essa solução anestésica.'],
+        p: 'Está correto o que se afirma em', o: AF, a: 0, fixa: true,
+        w: 'Só I. II é falsa: a felipressina age mais no lado venoso e dá hemostasia pobre; para sangrar menos, a epinefrina é melhor. III é falsa: a metemoglobinemia vem da prilocaína (orto-toluidina), não do vasoconstritor. Lembre também: por ter ação ocitócica (contração uterina), a felipressina é evitada em gestantes.', f: F_MAL + '; ' + F_AND, net: true },
+      { id: 'f37', tema: 'Vasoconstritores', ctx: 'Paciente cardiopata, compensado, vai fazer uma restauração. Para cardiopatas, recomenda-se limitar a epinefrina a 0,04 mg por sessão. Um tubete de 1,8 mL com epinefrina 1:100.000 tem 0,018 mg.', p: 'Quantos tubetes com epinefrina 1:100.000, no máximo, podem ser usados nessa sessão?',
+        o: ['1 tubete.', '2 tubetes.', '4 tubetes.', '7 tubetes.', '11 tubetes.'], a: 1,
+        w: '0,04 / 0,018 = 2,2, então 2 tubetes. 1:100.000 = 1 g em 100.000 mL = 0,01 mg/mL; x 1,8 = 0,018 mg por tubete. Os 11 tubetes são o limite do paciente saudável (0,2 mg de epinefrina). Junto com a dose menor: aspirar sempre e injetar devagar.', f: F_MAL + '; ' + F_A1 + ' (adequar doses para cardiopatas)', net: true },
+      { id: 'f38', tema: 'Vasoconstritores', ctx: 'Paciente hipertenso chega para uma exodontia eletiva. A pressão arterial, medida duas vezes com o paciente em repouso, deu 190 x 115 mmHg. Ele não tem nenhum sintoma.', p: 'Qual é a conduta correta?',
+        o: ['Fazer a exodontia normalmente, com 3 tubetes de lidocaína com epinefrina.', 'Trocar para prilocaína com felipressina e fazer a exodontia no mesmo dia.', 'Adiar o procedimento eletivo e encaminhar o paciente para avaliação médica.', 'Fazer a exodontia só com anestesia tópica.', 'Usar a técnica intraóssea, que tem latência imediata.'], a: 2,
+        w: 'Pressão igual ou acima de 180 x 110 mmHg = hipertensão não controlada: atendimento eletivo é adiado e o paciente vai ao médico. Trocar o vasoconstritor não resolve, porque o risco vem da própria pressão alta somada ao estresse e à dor do procedimento. A intraóssea seria pior: os slides lembram o risco de taquicardia. Hipertenso CONTROLADO pode receber vasoconstritor, em dose reduzida, com aspiração e injeção lenta.', f: F_MAL + '; ' + F_AND, net: true },
+      { id: 'f39', tema: 'Complicações', ctx: 'Durante o bloqueio do nervo alveolar inferior, ao aspirar, aparece sangue dentro do tubete.', p: 'Qual é a conduta correta?',
+        o: ['Injetar rápido, para terminar antes que o sangue coagule.', 'Injetar o dobro do volume, porque parte vai se perder no vaso.', 'Reposicionar levemente a agulha e aspirar de novo; só injetar com aspiração negativa.', 'Ignorar, porque sangue no tubete não muda nada.', 'Trocar para a técnica intrapulpar.'], a: 2,
+        w: 'Aspiração positiva = a ponta da agulha está dentro de um vaso. Os slides: "aspirar sempre, para evitar injeção intravascular" e "aspiração obrigatória em todas as técnicas". Injetar no vaso leva anestésico e epinefrina direto à circulação (taquicardia, toxicidade). Se o tubete ficar muito tingido de sangue, troca-se o tubete. A Gow-Gates tem menos aspiração positiva, segundo os slides.', f: F_MAN + '; ' + F_MAPA, net: false },
+      { id: 'f40', tema: 'Complicações', ctx: 'Logo após um bloqueio do nervo alveolar superior posterior (PSA), surge um aumento de volume rápido na bochecha, na região posterior da face, do mesmo lado.', p: 'Qual é a causa mais provável?',
+        o: ['Reação alérgica ao anestésico.', 'Lesão do nervo facial.', 'Injeção no músculo pterigóideo medial, causando trismo.', 'Agulha inserida profundamente demais, atingindo o plexo venoso pterigóideo e formando um hematoma.', 'Excesso de felipressina na solução.'], a: 3,
+        w: 'Hematoma = lesão vascular (slides). No PSA, agulha muito profunda alcança o plexo venoso pterigóideo, e o PSA é a técnica que mais causa hematoma. Conduta: compressão firme no local, gelo nas primeiras horas, orientar o paciente (pode ficar arroxeado por dias). Trismo é limitação de abertura, não inchaço imediato.', f: F_MAN + ' (hematoma = lesão vascular); ' + F_MAL, net: true },
+      { id: 'f41', tema: 'Complicações', ctx: 'Minutos depois de um bloqueio do alveolar inferior, o paciente não consegue fechar o olho do mesmo lado e o canto da boca fica caído.', p: 'O que aconteceu e qual a conduta?',
+        o: ['Parestesia definitiva do nervo lingual; encaminhar para cirurgia.', 'Reação alérgica grave; aplicar epinefrina intramuscular.', 'Trismo por lesão do pterigóideo medial; aplicar calor.', 'Acidente vascular cerebral; chamar o serviço de emergência.', 'Paralisia facial transitória: a agulha foi longe demais para trás, até a parótida, e anestesiou o nervo facial; tranquilizar o paciente e proteger o olho até o efeito passar.'], a: 4,
+        w: 'Os slides citam a paralisia facial transitória por injeção inadvertida no nervo facial. Com a agulha muito posterior, a solução vai para a cápsula da glândula parótida, por onde passa o nervo facial (motor da mímica). Dura o tempo da anestesia. Como o paciente não pisca, é preciso proteger a córnea (fechar o olho, tirar lente de contato). Não é AVC: começou logo após a injeção e só afeta o lado anestesiado.', f: F_MAN + '; ' + F_MAL, net: true },
+      { id: 'f42', tema: 'Complicações', ctx: 'Três semanas depois de um bloqueio mandibular, o paciente ainda relata formigamento e dormência em metade da língua.', p: 'Essa parestesia envolve principalmente qual nervo?',
+        o: ['Nervo lingual.', 'Nervo bucal.', 'Nervo facial.', 'Nervo infraorbitário.', 'Nervo nasopalatino.'], a: 0,
+        w: 'O lingual inerva os 2/3 anteriores da língua (mapa das técnicas) e é o nervo mais atingido nas parestesias depois do bloqueio mandibular; os slides citam a parestesia transitória do lingual ou do alveolar inferior. O bucal dá só a gengiva vestibular dos molares, e o facial é motor (paralisia, não formigamento).', f: F_MAN + '; ' + F_MAPA, net: false },
+      { id: 'f43', tema: 'Anestésicos locais', ctx: 'Um paciente chega com dor forte e um abscesso no molar inferior. O cirurgião-dentista faz o bloqueio, e o dente continua doendo. Considerando o texto, avalie as asserções a seguir e a relação proposta entre elas.',
+        af: ['Em região com inflamação aguda ou infecção, a anestesia local falha com mais frequência.', 'O meio inflamado é ácido, o que aumenta a fração ionizada (catiônica) do anestésico, que atravessa mal a membrana do nervo.'],
+        ar: true, p: 'A respeito dessas asserções, assinale a opção correta.', o: AR, a: 0, fixa: true,
+        w: 'As duas são verdadeiras e a II explica a I. O anestésico é uma base fraca: em pH baixo, mais moléculas ficam na forma ionizada (com carga), que fica "presa" fora do nervo. Pouca base livre atravessa a membrana, e o bloqueio falha. Aumentar a dose ali não resolve; o caminho é anestesiar longe do foco (bloqueio regional) ou tratar a inflamação.', f: F_MAL, net: true },
+      { id: 'f44', tema: 'Anestésicos locais', ctx: 'O anestésico local precisa chegar até o interior do nervo para bloquear o impulso. Sobre esse mecanismo, analise as afirmativas.',
+        af: ['Os anestésicos locais são bases fracas.', 'É a forma não ionizada (base livre, lipossolúvel) que atravessa a membrana lipídica do nervo.', 'Dentro do nervo, o anestésico bloqueia os canais de potássio, impedindo a despolarização.'],
+        p: 'Está correto o que se afirma em', o: AF, a: 2, fixa: true,
+        w: 'I e II são verdadeiras. III é falsa: o anestésico bloqueia os canais de SÓDIO voltagem-dependentes. Sem entrada de sódio não há despolarização, e o impulso não passa. Dentro do nervo, parte da base volta a ganhar carga, e é essa forma que se liga ao canal de sódio.', f: F_MAL + '; ' + F_A1 + ' (anestesia local = interrupção reversível da condução nervosa)', net: true },
+      { id: 'f45', tema: 'Sistema nervoso autônomo', ctx: 'A epinefrina do tubete diminui o sangramento e prolonga o efeito do anestésico por contrair os vasos da mucosa.', p: 'Essa vasoconstrição acontece pelo estímulo principalmente de qual receptor?',
+        o: ['Beta-2 adrenérgico.', 'Muscarínico M3.', 'Alfa-1 adrenérgico.', 'Nicotínico.', 'Receptor V1 da vasopressina.'], a: 2,
+        w: 'Alfa-1 no músculo liso dos vasos = vasoconstrição. O beta-2 faz o contrário (vasodilatação no músculo esquelético e broncodilatação), e o beta-1 acelera o coração, por isso a taquicardia quando a epinefrina cai na circulação. O receptor V1 é o da felipressina, que não é adrenérgica.', f: F_MAL + '; plano de ensino (receptores adrenérgicos)', net: true },
+      { id: 'f46', tema: 'Sistema nervoso autônomo', ctx: 'O parassimpático controla a saliva aquosa e abundante. Vários remédios agem nesse sistema. Sobre isso, analise as afirmativas.',
+        af: ['A acetilcolina é o neurotransmissor das fibras pós-ganglionares parassimpáticas e age em receptores muscarínicos.', 'A atropina, antagonista muscarínico, reduz a salivação e pode causar boca seca.', 'A pilocarpina, agonista muscarínico, pode ser usada para estimular a salivação em pacientes com boca seca.'],
+        p: 'Está correto o que se afirma em', o: AF, a: 4, fixa: true,
+        w: 'As três são verdadeiras. Bloquear o receptor muscarínico (atropina) = menos saliva; estimular (pilocarpina, agonista direto) = mais saliva. Por isso muitos remédios com efeito anticolinérgico deixam a boca seca. Os anticolinesterásicos (como a neostigmina) aumentam a acetilcolina porque impedem sua degradação.', f: 'Plano de ensino (receptores colinérgicos, anticolinesterásicos, antagonistas muscarínicos) e calendário da disciplina (27/08 e 03/09); ' + F_SM1 + ' (saliva e SNA)', net: true },
+      { id: 'f47', tema: 'Anatomia aplicada', ctx: 'O nervo trigêmeo (V par craniano) é a principal via sensitiva da cavidade oral e tem três divisões.', p: 'Qual divisão é mista (sensitiva e motora), inerva os músculos da mastigação e sai do crânio pelo forame oval?',
+        o: ['Nervo oftálmico (V1).', 'Nervo maxilar (V2).', 'Nervo mandibular (V3).', 'Nervo facial (VII).', 'Nervo glossofaríngeo (IX).'], a: 2,
+        w: 'V3, o mandibular, é a única divisão mista: além da sensibilidade, leva a raiz motora para os músculos da mastigação. Sai pelo forame oval. O maxilar (V2) é só sensitivo e sai pelo forame redondo; o oftálmico (V1), pela fissura orbital superior. O facial (VII) é o nervo da mímica, não da mastigação.', f: F_TP1 + ' (nervo trigêmeo); ' + F_ED14, net: true },
+      { id: 'f48', tema: 'Anatomia aplicada', ctx: 'Para acertar a punção, é preciso saber por onde cada nervo sai do osso. Sobre os forames ligados à anestesia, analise as afirmativas.',
+        af: ['O nervo maxilar (V2) sai do crânio pelo forame redondo.', 'O nervo nasopalatino chega à mucosa do palato pelo forame palatino maior.', 'O forame mentual fica, em geral, na face vestibular da mandíbula, na região dos pré-molares inferiores.'],
+        p: 'Está correto o que se afirma em', o: AF, a: 3, fixa: true,
+        w: 'I e III são verdadeiras. II é falsa: o nasopalatino sai pelo forame INCISIVO, debaixo da papila incisiva (por isso a punção é na papila). Pelo forame palatino maior, perto do 2º/3º molar superior, sai o nervo palatino maior. O mapa das técnicas coloca o forame mentual na altura do 2º pré-molar.', f: F_MAPA + '; ' + F_TP1 + '; ' + F_ED14, net: true },
+      { id: 'f49', tema: 'Anatomia aplicada', ctx: 'No bloqueio do nervo alveolar inferior, a solução é depositada no espaço pterigomandibular, onde passam o nervo alveolar inferior, o nervo lingual e os vasos alveolares inferiores.', p: 'Qual estrutura forma a parede MEDIAL desse espaço?',
+        o: ['A face medial do ramo da mandíbula.', 'O músculo masseter.', 'O músculo pterigóideo medial.', 'O músculo bucinador.', 'A glândula sublingual.'], a: 2,
+        w: 'O espaço fica entre o ramo da mandíbula (parede lateral, onde está o forame mandibular com a língula) e o músculo pterigóideo medial (parede medial). Por isso os slides alertam: sem contato ósseo, não forçar a agulha, pelo risco de injetar no pterigóideo medial, que dá trismo. O masseter fica do lado de fora do ramo.', f: F_MAN + '; ' + F_ED14, net: true },
+      { id: 'f50', tema: 'Anatomia aplicada', ctx: 'Os nervos alveolares superiores posteriores saem do nervo maxilar antes de ele entrar no canal infraorbitário e penetram na maxila pela tuberosidade. Os nervos alveolares superiores médio (ASM) e anterior (ASA) nascem mais à frente.', p: 'De qual nervo saem o ASM e o ASA?',
+        o: ['Do nervo alveolar inferior.', 'Do nervo infraorbitário, ao longo do canal infraorbitário.', 'Do nervo nasopalatino.', 'Do nervo bucal.', 'Do nervo lingual.'], a: 1,
+        w: 'O ASM e o ASA saem do nervo infraorbitário (continuação do maxilar) dentro do canal/sulco infraorbitário. É por isso que o bloqueio infraorbitário, com a solução no forame, pega ASA + ASM de uma vez: incisivos, canino e pré-molares, além de lábio superior, asa do nariz e pálpebra inferior. O PSA precisa de punção própria, acima do 2º molar.', f: F_MAX + '; ' + F_MAPA + '; ' + F_WMAX, net: true }
     ]
   };
 })();
