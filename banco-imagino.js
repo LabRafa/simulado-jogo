@@ -21,7 +21,7 @@ window.BANCOS = window.BANCOS || {};
     curta: 'Imaginologia',
     prof: 'Profa. Mariana',
     turma: '3008',
-    proxima: 'Palestra de 10/11. Revisão para as próximas provas',
+    proxima: 'Palestra de 10/11. Bônus pra treinar leitura de imagem, não é matéria de prova',
     modos: [
       { id: 'completo', nome: 'Simulado completo', sub: '10 questões sorteadas de toda a palestra.', temas: null },
       { id: 't-imagens', nome: 'Questões com imagem', sub: 'Radiografias e esquemas: olhe a imagem e responda.', temas: null, img: true },
