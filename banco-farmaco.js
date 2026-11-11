@@ -14,6 +14,12 @@
   const F_AND = 'Andrade, Terapêutica Medicamentosa em Odontologia, cap. 5 (livro da disciplina): tabela de doses máximas';
   const F_ED14 = 'Estudo dirigido de anatomia, caps. 13 e 14 (inervação e anestesia)';
   const F_WMAX = 'Wikipédia, "Nervo maxilar" (pt.wikipedia.org/wiki/Nervo_maxilar)';
+  const F_ANDT = 'Andrade, Terapêutica Medicamentosa em Odontologia (livro da disciplina)';
+  const F_AND7 = 'Andrade, Terapêutica Medicamentosa em Odontologia, cap. 7 (antibióticos; leitura do ciclo 7 do plano de ensino)';
+  const F_AND9 = 'Andrade, Terapêutica Medicamentosa em Odontologia, cap. 9 (normas de prescrição; leitura do ciclo 5 do plano de ensino)';
+  const F_AHA = 'AHA 2021, Prevention of Viridans Group Streptococcal Infective Endocarditis (Wilson et al., Circulation 2021)';
+  const F_RDC = 'ANVISA, RDC 20/2011 (prescrição e dispensação de antimicrobianos; regras mantidas pela RDC 471/2021)';
+  const F_344 = 'Portaria SVS/MS 344/1998 (lista B1 e Notificação de Receita B)';
   const AR = [
     'As asserções I e II são proposições verdadeiras, e a II é uma justificativa correta da I.',
     'As asserções I e II são proposições verdadeiras, mas a II não é uma justificativa correta da I.',
@@ -44,6 +50,7 @@
       tema('t-esp', 'Técnicas especiais e complicações', 'Tópica, intraligamentar, intraóssea, trismo, hematoma, paralisia facial, parestesia.', ['Técnicas especiais', 'Complicações']),
       tema('t-dose', 'Doses e tubetes', 'mg por tubete, dose máxima por peso, epinefrina no cardiopata.', ['Dose máxima']),
       tema('t-anat', 'Anatomia aplicada à anestesia', 'Trigêmeo, forames, espaço pterigomandibular, nervos alveolares.', ['Anatomia aplicada']),
+      tema('t-med', 'Antibióticos, anti-inflamatórios e sedação', 'Amoxicilina, alergia, endocardite, AINEs, dipirona, corticoide, benzodiazepínicos, receitas.', ['Antibióticos', 'Anti-inflamatórios e analgésicos', 'Corticoides e benzodiazepínicos', 'Prescrição']),
       { id: 'afirm', nome: 'Afirmativas I, II, III', sub: 'Questões no estilo "está correto o que se afirma em" e de asserção e razão.', temas: null, af: true },
       { id: 'erros', nome: 'Revisar meus erros', sub: 'Só as questões que você errou ou deixou em branco aqui.', temas: null, erros: true }
     ],
@@ -90,7 +97,28 @@
         'V1 fissura orbital superior; V2 forame redondo (só sensitivo); V3 forame oval (misto, mastigação).',
         'Nasopalatino: forame incisivo. Palatino maior: forame palatino maior. Mentual: região dos pré-molares inferiores.',
         'Espaço pterigomandibular: entre o ramo (lateral) e o pterigóideo medial (medial).',
-        'PSA sai do maxilar antes do canal infraorbitário; ASM e ASA saem do infraorbitário.'] }
+        'PSA sai do maxilar antes do canal infraorbitário; ASM e ASA saem do infraorbitário.'] },
+      { t: 'Antibióticos', i: [
+        'Amoxicilina: penicilina (betalactâmico), bactericida, age na parede celular. É destruída pelas betalactamases.',
+        'Amoxicilina + clavulanato: o clavulanato inibe as betalactamases e protege a amoxicilina; amplia o espectro para as bactérias produtoras dessas enzimas.',
+        'Antibióticos não substituem drenagem nem remoção da causa da infecção.',
+        'Alergia grave à penicilina: nada de amoxicilina, com ou sem clavulanato. Alternativas no tratamento: clindamicina ou macrolídeo (azitromicina, claritromicina).',
+        'Endocardite (AHA 2021), só paciente de alto risco: amoxicilina 2 g VO, dose única, 30 a 60 min antes. Alérgico: azitromicina ou claritromicina 500 mg, ou doxiciclina 100 mg. Clindamicina não é mais recomendada.'] },
+      { t: 'Anti-inflamatórios e analgésicos', i: [
+        'Anti-inflamatórios não esteroidais (AINEs) inibem a COX. COX-1 = constitutiva (protege estômago, plaqueta, rim). COX-2 = induzida na inflamação.',
+        'Inibir a COX-1 = lesão gástrica e mais sangramento. Celecoxibe (COX-2 seletivo) poupa o estômago, mas tem risco cardiovascular.',
+        'AINE + anti-hipertensivo: menos prostaglandina renal, retém sódio, a pressão sobe. AINE + varfarina: mais sangramento.',
+        'Dipirona e paracetamol: analgésicos e antitérmicos, quase sem ação anti-inflamatória, pouco efeito na plaqueta (escolha em quem usa anticoagulante). Paracetamol em excesso = fígado (máx. 4 g/dia no adulto). Dipirona: agranulocitose rara.'] },
+      { t: 'Corticoides e benzodiazepínicos', i: [
+        'Corticoides inibem a fosfolipase A2 (via anexinas/lipocortinas): menos prostaglandinas E leucotrienos. Por isso é anti-inflamatório mais potente que o AINE.',
+        'Terceiro molar: dexametasona em dose única, VO, cerca de 1 hora antes = menos edema e trismo. Dose única não suprime a suprarrenal de forma relevante.',
+        'Benzodiazepínico: potencializa o GABA no receptor GABA-A (mais cloreto entra). Ansiolítico, sedativo.',
+        'Midazolam VO cerca de 30 min antes; diazepam VO cerca de 1 h antes. Paciente com acompanhante e sem dirigir.',
+        'Antagonista do benzodiazepínico = flumazenil. (Naloxona é do opioide.)'] },
+      { t: 'Prescrição', i: [
+        'Prescrição em receita simples: AINEs, dipirona, paracetamol, corticoides.',
+        'Antimicrobiano (RDC 20/2011): receita em 2 vias, a 1ª fica retida na farmácia, validade de 10 dias.',
+        'Benzodiazepínico = lista B1 = Notificação de Receita B (azul), validade de 30 dias, vale só no estado onde foi emitida.'] }
     ],
     q: [
       /* ===== SM1 (prova 0085173), na ordem da prova ===== */
@@ -293,7 +321,60 @@
         w: 'O espaço fica entre o ramo da mandíbula (parede lateral, onde está o forame mandibular com a língula) e o músculo pterigóideo medial (parede medial). Por isso os slides alertam: sem contato ósseo, não forçar a agulha, pelo risco de injetar no pterigóideo medial, que dá trismo. O masseter fica do lado de fora do ramo.', f: F_MAN + '; ' + F_ED14, net: true },
       { id: 'f50', tema: 'Anatomia aplicada', ctx: 'Os nervos alveolares superiores posteriores saem do nervo maxilar antes de ele entrar no canal infraorbitário e penetram na maxila pela tuberosidade. Os nervos alveolares superiores médio (ASM) e anterior (ASA) nascem mais à frente.', p: 'De qual nervo saem o ASM e o ASA?',
         o: ['Do nervo alveolar inferior.', 'Do nervo infraorbitário, ao longo do canal infraorbitário.', 'Do nervo nasopalatino.', 'Do nervo bucal.', 'Do nervo lingual.'], a: 1,
-        w: 'O ASM e o ASA saem do nervo infraorbitário (continuação do maxilar) dentro do canal/sulco infraorbitário. É por isso que o bloqueio infraorbitário, com a solução no forame, pega ASA + ASM de uma vez: incisivos, canino e pré-molares, além de lábio superior, asa do nariz e pálpebra inferior. O PSA precisa de punção própria, acima do 2º molar.', f: F_MAX + '; ' + F_MAPA + '; ' + F_WMAX, net: true }
+        w: 'O ASM e o ASA saem do nervo infraorbitário (continuação do maxilar) dentro do canal/sulco infraorbitário. É por isso que o bloqueio infraorbitário, com a solução no forame, pega ASA + ASM de uma vez: incisivos, canino e pré-molares, além de lábio superior, asa do nariz e pálpebra inferior. O PSA precisa de punção própria, acima do 2º molar.', f: F_MAX + '; ' + F_MAPA + '; ' + F_WMAX, net: true },
+
+      /* ===== +15 questões de medicamentos para o SM2 (11/11/2026): antibióticos, AINEs, analgésicos, corticoides, benzodiazepínicos e prescrição (aulas de 22/10 e 29/10 no calendário) ===== */
+      { id: 'f51', tema: 'Antibióticos', ctx: 'Em infecções odontogênicas, o cirurgião-dentista pode prescrever amoxicilina sozinha ou associada ao clavulanato de potássio.', p: 'Qual é a função do clavulanato nessa associação?',
+        o: ['Ter ação bactericida própria e potente contra anaeróbios, dispensando a amoxicilina.', 'Inibir as betalactamases, protegendo a amoxicilina e ampliando o espectro para bactérias produtoras dessas enzimas.', 'Reduzir os efeitos gastrointestinais da amoxicilina, como a diarreia.', 'Transformar a amoxicilina em um antibiótico bacteriostático.', 'Permitir o uso da amoxicilina em pacientes alérgicos à penicilina.'], a: 1,
+        w: 'Várias bactérias produzem betalactamase, enzima que quebra o anel betalactâmico e inativa a amoxicilina. O clavulanato inibe essa enzima, então a amoxicilina volta a funcionar contra essas bactérias. Pegadinhas: o clavulanato quase não tem ação antibacteriana sozinho, costuma AUMENTAR a diarreia, e o remédio continua sendo penicilina (proibido no alérgico).', f: F_AND7, net: true },
+      { id: 'f52', tema: 'Antibióticos', ctx: 'A amoxicilina é o antibiótico mais prescrito na odontologia. Sobre ela, analise as afirmativas.',
+        af: ['A amoxicilina é um antibiótico betalactâmico, bactericida, que age inibindo a síntese da parede celular bacteriana.', 'A amoxicilina sozinha é resistente às betalactamases, por isso não precisa de associação.', 'Em um abscesso dentoalveolar, o antibiótico dispensa a drenagem e a remoção da causa da infecção.'],
+        p: 'Está correto o que se afirma em', o: AF, a: 0, fixa: true,
+        w: 'Só I. II é falsa: a amoxicilina é destruída pelas betalactamases, por isso existe a associação com clavulanato. III é falsa: o antibiótico é complemento; o tratamento principal é drenar e remover a causa (pulpectomia, exodontia). Antibiótico sem tratar a causa só adia o problema e favorece resistência.', f: F_AND7, net: true },
+      { id: 'f53', tema: 'Antibióticos', ctx: 'Paciente com abscesso e disseminação da infecção relata que, anos atrás, teve inchaço na garganta e falta de ar (anafilaxia) depois de tomar Benzetacil (penicilina).', p: 'Qual antibiótico NÃO pode ser prescrito para esse paciente?',
+        o: ['Clindamicina.', 'Azitromicina.', 'Amoxicilina associada ao clavulanato de potássio.', 'Claritromicina.', 'Nenhum dos citados tem restrição para esse paciente.'], a: 2,
+        w: 'Amoxicilina com clavulanato continua sendo amoxicilina, uma penicilina: no alérgico, pode repetir a anafilaxia. O clavulanato não muda isso. Para TRATAR a infecção no alérgico, as alternativas são a clindamicina e os macrolídeos (azitromicina, claritromicina). Atenção: a clindamicina saiu só da PROFILAXIA de endocardite (AHA 2021), não do tratamento.', f: F_AND7, net: true },
+      { id: 'f54', tema: 'Antibióticos', ctx: 'Paciente adulto, com prótese valvar cardíaca, vai fazer uma exodontia. Não tem alergia a medicamentos. O dentista segue a diretriz da American Heart Association (AHA 2021) para prevenção da endocardite infecciosa.', p: 'Qual é o esquema correto?',
+        o: ['Nenhuma profilaxia, porque prótese valvar não é condição de risco.', 'Amoxicilina 500 mg de 8 em 8 horas, por 7 dias, começando no dia anterior.', 'Clindamicina 600 mg como primeira escolha.', 'Amoxicilina 2 g por via oral, em dose única, 30 a 60 minutos antes do procedimento.', 'Amoxicilina 2 g por via oral no dia seguinte à exodontia.'], a: 3,
+        w: 'AHA 2021: amoxicilina 2 g (criança 50 mg/kg), dose única, 30 a 60 min antes. A ideia é ter antibiótico no sangue na hora da bacteremia. Prótese valvar é um dos casos de ALTO risco (junto com endocardite prévia, algumas cardiopatias congênitas e transplantado cardíaco com valvopatia), e só esses recebem profilaxia, em procedimento que manipula gengiva, região periapical ou perfura a mucosa. Não se faz "curso" de 7 dias, e a clindamicina não é mais recomendada.', f: F_AHA, net: true },
+      { id: 'f55', tema: 'Antibióticos', ctx: 'Paciente de alto risco para endocardite infecciosa, alérgico à penicilina, vai fazer uma raspagem subgengival. Considerando o texto, avalie as asserções a seguir e a relação proposta entre elas.',
+        af: ['A diretriz da AHA de 2021 deixou de recomendar a clindamicina na profilaxia da endocardite, indicando no lugar dela azitromicina ou claritromicina (500 mg) ou doxiciclina (100 mg).', 'A clindamicina causa reações adversas mais frequentes e graves que os outros antibióticos da profilaxia, incluindo a infecção por Clostridioides difficile.'],
+        ar: true, p: 'A respeito dessas asserções, assinale a opção correta.', o: AR, a: 0, fixa: true,
+        w: 'As duas são verdadeiras e a II explica a I: foi justamente pelo risco maior de efeitos adversos (colite por C. difficile) que a AHA tirou a clindamicina em 2021. Muito livro e prova antigos ainda trazem clindamicina 600 mg, cuidado. Alérgico sem história de anafilaxia ainda pode receber cefalexina 2 g.', f: F_AHA, net: true },
+      { id: 'f56', tema: 'Anti-inflamatórios e analgésicos', ctx: 'Os anti-inflamatórios não esteroidais (AINEs) agem inibindo as cicloxigenases (COX). A COX-1 é constitutiva e a COX-2 é induzida na inflamação.', p: 'Por que os AINEs não seletivos (como o diclofenaco e o ibuprofeno) causam lesão no estômago?',
+        o: ['Porque inibem a COX-1, diminuindo as prostaglandinas que protegem a mucosa gástrica.', 'Porque inibem a fosfolipase A2, como os corticoides.', 'Porque estimulam a COX-2 na parede do estômago.', 'Porque aumentam a produção de prostaglandinas no estômago.', 'Porque agem em receptores opioides do trato gastrointestinal.'], a: 0,
+        w: 'A COX-1 produz prostaglandinas que protegem o estômago (muco, bicarbonato, fluxo de sangue), mantêm a função renal e, nas plaquetas, o tromboxano. Inibir a COX-1 tira essa proteção: gastrite, úlcera e mais sangramento. Os COX-2 seletivos (celecoxibe) poupam mais o estômago, mas têm risco cardiovascular. Fosfolipase A2 é o alvo do corticoide.', f: F_ANDT, net: true },
+      { id: 'f57', tema: 'Anti-inflamatórios e analgésicos', ctx: 'Antes de prescrever um AINE, o dentista precisa saber que outros remédios o paciente usa. Sobre as interações e os riscos dos AINEs, analise as afirmativas.',
+        af: ['Os AINEs diminuem as prostaglandinas renais e podem reduzir o efeito dos anti-hipertensivos, elevando a pressão arterial.', 'Em paciente que usa varfarina, o AINE aumenta o risco de sangramento.', 'Por ser seletivo para a COX-2, o celecoxibe não tem risco cardiovascular e é o anti-inflamatório de escolha no cardiopata.'],
+        p: 'Está correto o que se afirma em', o: AF, a: 2, fixa: true,
+        w: 'I e II são verdadeiras. III é falsa: os COX-2 seletivos AUMENTAM o risco cardiovascular (trombose, infarto), por isso não são escolha no cardiopata. Nos pacientes hipertensos ou anticoagulados, para dor leve a moderada, a saída costuma ser dipirona ou paracetamol, e, se precisar de anti-inflamatório, o menor tempo possível.', f: F_ANDT, net: true },
+      { id: 'f58', tema: 'Anti-inflamatórios e analgésicos', ctx: 'Paciente de 65 anos usa varfarina (anticoagulante) e tem o INR controlado. Fez uma exodontia simples e deve ter dor leve a moderada.', p: 'Qual analgésico é a escolha mais segura para ele?',
+        o: ['Ácido acetilsalicílico 500 mg.', 'Ibuprofeno 600 mg de 6 em 6 horas, por 5 dias.', 'Diclofenaco 50 mg de 8 em 8 horas.', 'Naproxeno 500 mg de 12 em 12 horas.', 'Dipirona 500 mg a 1 g, de 6 em 6 horas, por curto período.'], a: 4,
+        w: 'A dipirona tem efeito pequeno e reversível na plaqueta e não agride o estômago como os AINEs, então não soma risco de sangramento com a varfarina. O AAS é antiagregante (a pior escolha), e ibuprofeno, diclofenaco e naproxeno são AINEs: aumentam o sangramento e a chance de sangramento gástrico. O paracetamol também serviria, em dose moderada e por poucos dias.', f: F_ANDT, net: true },
+      { id: 'f59', tema: 'Anti-inflamatórios e analgésicos', ctx: 'Dipirona e paracetamol são os analgésicos mais usados depois de procedimentos odontológicos. Sobre eles, analise as afirmativas.',
+        af: ['O paracetamol acima da dose máxima diária (4 g no adulto) pode causar lesão grave do fígado.', 'O paracetamol é contraindicado na gestação.', 'A agranulocitose é uma reação adversa rara associada à dipirona.'],
+        p: 'Está correto o que se afirma em', o: AF, a: 3, fixa: true,
+        w: 'I e III são verdadeiras. II é falsa: o paracetamol é justamente o analgésico de escolha na gestante. Os dois têm boa ação analgésica e antitérmica, mas pouca ação anti-inflamatória: para edema, não substituem o anti-inflamatório.', f: F_ANDT, net: true },
+      { id: 'f60', tema: 'Corticoides e benzodiazepínicos', ctx: 'Paciente jovem e saudável vai extrair os terceiros molares inferiores inclusos. O dentista quer reduzir o edema e o trismo no pós-operatório com uma analgesia preventiva.', p: 'Qual conduta segue esse objetivo?',
+        o: ['Dexametasona em dose única, por via oral, cerca de 1 hora antes da cirurgia.', 'Dexametasona por 15 dias, começando uma semana antes da cirurgia.', 'Amoxicilina 2 g, 1 hora antes, porque o antibiótico reduz o edema.', 'Midazolam 7,5 mg, porque o benzodiazepínico tem ação anti-inflamatória.', 'Nenhum medicamento antes; o anti-inflamatório só funciona depois do edema instalado.'], a: 0,
+        w: 'Corticoide antes da cirurgia (analgesia preemptiva) chega antes da cascata inflamatória: menos edema, trismo e dor. Dose única não traz os riscos do uso prolongado. Antibiótico não é anti-inflamatório, e o midazolam é ansiolítico, não tira edema. Esperar o edema aparecer para medicar perde justamente a vantagem do "preventivo".', f: F_ANDT, net: true },
+      { id: 'f61', tema: 'Corticoides e benzodiazepínicos', ctx: 'Os corticoides são usados na odontologia principalmente em cirurgias, para controlar a inflamação. Considerando o texto, avalie as asserções a seguir e a relação proposta entre elas.',
+        af: ['Uma dose única de dexametasona no pré-operatório tem alto risco de suprimir a glândula suprarrenal e deve ser evitada.', 'Os corticoides inibem a fosfolipase A2, diminuindo a formação tanto de prostaglandinas quanto de leucotrienos.'],
+        ar: true, p: 'A respeito dessas asserções, assinale a opção correta.', o: AR, a: 3, fixa: true,
+        w: 'I é falsa: supressão da suprarrenal é risco do uso PROLONGADO; dose única ou uso de poucos dias não traz esse problema relevante. II é verdadeira: bloqueando a fosfolipase A2 (via anexinas/lipocortinas), o corticoide corta o ácido araquidônico na origem, então reduz as duas vias, a da COX (prostaglandinas) e a da lipoxigenase (leucotrienos). O AINE só bloqueia a COX.', f: F_ANDT, net: true },
+      { id: 'f62', tema: 'Corticoides e benzodiazepínicos', ctx: 'Paciente adulto, saudável e muito ansioso vai fazer uma exodontia. O dentista decide fazer sedação mínima por via oral com um benzodiazepínico.', p: 'Qual conduta está correta?',
+        o: ['Diazepam 10 mg por via oral 5 minutos antes, porque o efeito é imediato.', 'Midazolam por via oral e liberar o paciente para ir dirigindo para casa.', 'Midazolam 7,5 mg por via oral cerca de 30 minutos antes, com o paciente acompanhado e orientado a não dirigir.', 'Flumazenil por via oral 1 hora antes, para acalmar o paciente.', 'Dexametasona 1 hora antes, porque o corticoide é ansiolítico.'], a: 2,
+        w: 'O midazolam tem início rápido e duração curta: por via oral, cerca de 30 minutos antes. O diazepam demora mais para agir (cerca de 1 hora antes). O benzodiazepínico deixa sonolência e reflexos lentos: acompanhante e nada de dirigir. Flumazenil é o ANTAGONISTA (reverte a sedação) e corticoide não é ansiolítico.', f: F_ANDT, net: true },
+      { id: 'f63', tema: 'Corticoides e benzodiazepínicos', ctx: 'Os benzodiazepínicos se ligam ao receptor GABA-A e aumentam o efeito do GABA, deixando entrar mais cloreto no neurônio. Em caso de sedação excessiva, existe um antagonista específico.', p: 'Qual é esse antagonista?',
+        o: ['Naloxona.', 'Atropina.', 'Adrenalina.', 'Neostigmina.', 'Flumazenil.'], a: 4,
+        w: 'O flumazenil é antagonista competitivo no sítio dos benzodiazepínicos do receptor GABA-A e reverte a sedação. A naloxona é o antagonista dos OPIOIDES (pegadinha clássica). Atropina é antimuscarínica, adrenalina é para anafilaxia, e neostigmina é anticolinesterásico.', f: F_ANDT, net: true },
+      { id: 'f64', tema: 'Prescrição', ctx: 'Cada tipo de medicamento tem seu tipo de receita. Sobre a prescrição na odontologia, analise as afirmativas.',
+        af: ['Diazepam e midazolam são da lista B1 e exigem Notificação de Receita B (azul).', 'A Notificação de Receita B vale por 30 dias e só dentro do estado (unidade federativa) em que foi emitida.', 'Ibuprofeno, dipirona e dexametasona podem ser prescritos em receita simples, sem retenção na farmácia.'],
+        p: 'Está correto o que se afirma em', o: AF, a: 4, fixa: true,
+        w: 'As três são verdadeiras. Benzodiazepínico = lista B1 (psicotrópicos) da Portaria 344/98 = receita AZUL, numerada, validade de 30 dias, só no estado. Analgésicos, AINEs e corticoides vão em receita simples. Antibiótico é outra regra: receita em 2 vias, com retenção (RDC 20/2011). Pegadinha comum: achar que corticoide é controlado.', f: F_344 + '; ' + F_AND9, net: true },
+      { id: 'f65', tema: 'Prescrição', ctx: 'O dentista prescreveu amoxicilina no dia 02, em receita de duas vias. O paciente só foi à farmácia no dia 15 do mesmo mês.', p: 'De acordo com a norma da ANVISA para antimicrobianos, o que acontece?',
+        o: ['A farmácia não pode vender: a receita vale por 10 dias a partir da emissão, e o paciente precisa de nova receita.', 'A farmácia vende normalmente, porque a receita de antibiótico vale por 30 dias.', 'A farmácia vende, mas exige a Notificação de Receita B (azul).', 'A farmácia vende sem reter nenhuma via, porque amoxicilina é de venda livre.', 'A receita de antibiótico não tem prazo de validade.'], a: 0,
+        w: 'Antimicrobiano (RDC 20/2011): receita em 2 vias, a 1ª fica retida na farmácia e a 2ª volta ao paciente; validade de 10 dias contados da emissão. Do dia 02 ao dia 15 passaram 13 dias: venceu. Os 30 dias são da Notificação de Receita B (benzodiazepínico), e a receita azul não é usada para antibiótico.', f: F_RDC, net: true }
     ]
   };
 })();
